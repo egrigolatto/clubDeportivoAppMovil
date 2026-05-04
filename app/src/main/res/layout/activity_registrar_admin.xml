@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/fondo"
+    android:padding="30dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="55dp"
+            >
+
+            <ImageView
+                android:id="@+id/btnVolver"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/arrow_back_24px"
+                android:contentDescription="arrowback"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="REGISTRO ADMIN"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginRight="60dp"
+                android:letterSpacing="0.1"
+                />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/more_vert_24px"
+                android:layout_gravity="center"
+                android:contentDescription="settings"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_rectangulo"
+                android:contentDescription="barra"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="INFORMACION NUEVO ADMIN"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:layout_marginBottom="0dp">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="NOMBRE"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textStyle="bold"
+                android:textColor="@color/color_3"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="APELLIDO"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textStyle="bold"
+                android:textColor="@color/color_3"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:layout_marginBottom="10dp">
+
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textColor="@color/color_3"
+                android:backgroundTint="@color/color_5"
+                />
+            <EditText
+                android:id="@+id/apellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textColor="@color/color_3"
+                android:backgroundTint="@color/color_5"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:layout_marginBottom="0dp">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="TIPO DOCUMENTO"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textStyle="bold"
+                android:textColor="@color/color_3"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="DNI"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textStyle="bold"
+                android:textColor="@color/color_3"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="165dp"
+                android:layout_height="40dp"
+                app:endIconMode="dropdown_menu"
+                app:cornerRadius="0dp"
+
+                android:elevation="0dp"
+                app:elevation="0dp"
+                android:backgroundTint="@color/color_5"
+                >
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/tipoDocumento"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:paddingStart="5dp"
+
+                    android:inputType="none"
+
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:id="@+id/dni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textColor="@color/color_3"
+                android:backgroundTint="@color/color_5"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="EMAIL"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textStyle="bold"
+                android:textColor="@color/color_3"
+                />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textColor="@color/color_3"
+                android:backgroundTint="@color/color_5"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="TELEFONO"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textStyle="bold"
+                android:textColor="@color/color_3"
+                />
+
+            <EditText
+                android:id="@+id/telefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textColor="@color/color_3"
+                android:backgroundTint="@color/color_5"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegistrarAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REGISTRAR"
+            android:backgroundTint="@color/black"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:layout_marginTop="60dp"
+            android:gravity="center"
+
+            app:cornerRadius="16dp"
+
+            app:icon="@drawable/person_add_24px"
+            app:iconGravity="textStart"
+
+
+            app:iconSize="32dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/btnCancelar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CANCELAR"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                />
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>

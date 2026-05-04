@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="40dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/check_circle_24px"
+        android:layout_marginBottom="40dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REGISTRO EXITOSO"
+        android:textSize="16sp"
+        android:letterSpacing="0.15"
+        android:textStyle="bold"
+        android:textColor="@color/color_3"
+        android:layout_marginBottom="40dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Juan Pérez fue registrado
+exitosamente con el DNI N° 24375679"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAceptar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ACEPTAR"
+        android:backgroundTint="@color/black"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+
+        app:cornerRadius="16dp"
+
+        android:layout_marginBottom="20dp"
+        />
+
+
+
+
+</LinearLayout>
