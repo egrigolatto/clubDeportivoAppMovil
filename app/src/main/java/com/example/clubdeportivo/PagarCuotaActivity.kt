@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 
 
 class PagarCuotaActivity : AppCompatActivity() {
@@ -54,8 +55,49 @@ class PagarCuotaActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
 
+                "3" -> {
+                    val vista = layoutInflater.inflate(R.layout.dialog_template, null)
+
+                    val mensaje = vista.findViewById<TextView>(R.id.textDialog)
+
+                    val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
+
+                    mensaje.text = "No registra deuda"
+
+                    val dialog = AlertDialog.Builder(this)
+                        .setView(vista)
+                        .create()
+
+                    dialog.show()
+
+                    btnAceptar.setOnClickListener {
+
+                        dialog.dismiss()
+
+                    }
+                }
+
+
                 else -> {
-                    mostrarError(mensajeError, "El DNI no existe en el sistema")
+                    val vista = layoutInflater.inflate(R.layout.dialog_template, null)
+
+                    val mensaje = vista.findViewById<TextView>(R.id.textDialog)
+
+                    val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
+
+                    mensaje.text = "El cliente no se encuentra registrado"
+
+                    val dialog = AlertDialog.Builder(this)
+                        .setView(vista)
+                        .create()
+
+                    dialog.show()
+
+                    btnAceptar.setOnClickListener {
+
+                        dialog.dismiss()
+
+                    }
                 }
             }
         }
