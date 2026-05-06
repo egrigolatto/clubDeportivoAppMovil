@@ -301,6 +301,8 @@
 
 
 
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegistrarNoSocio"
             android:layout_width="match_parent"

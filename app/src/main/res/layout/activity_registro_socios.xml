@@ -387,11 +387,23 @@
                 android:textSize="18sp"
                 android:letterSpacing="0.1"
                 android:textColor="@color/black"
-                android:text="$  20.000"
+                android:text="$ 0.00"
                 android:textStyle="bold"
-
                 />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/mensajeError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_2"
+            android:text="hola"
+            android:textSize="15sp"
+            android:visibility="invisible"
+            android:layout_marginBottom="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegistrarSocio"

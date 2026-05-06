@@ -17,6 +17,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         val dni = "1234"
         val contrasenia = "1234"
 
