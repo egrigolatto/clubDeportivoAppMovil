@@ -80,6 +80,7 @@
                     android:layout_height="46dp" />
 
                 <!-- Datos del usuario -->
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

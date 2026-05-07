@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import android.widget.LinearLayout
 import android.widget.Button
+import android.widget.TextView
 
 
 
@@ -13,6 +14,15 @@ class MenuPrincipalActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_principal)
+
+        //val rol = "ADMINISTRADOR"
+        //val usuario = "user_01"
+
+        //val rolUsuario = findViewById<TextView>(R.id.rol)
+        //val user = findViewById<TextView>(R.id.usuario)
+
+        //rolUsuario.text = rol
+        //user.text = usuario
 
         val btnCardRegistrarSocio = findViewById<LinearLayout>(R.id.cardRegistrarSocio)
         btnCardRegistrarSocio.setOnClickListener {
