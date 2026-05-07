@@ -21,7 +21,7 @@ class RegistrarAdminActivity : AppCompatActivity() {
             val intent = Intent(this, MenuPrincipalActivity::class.java)
             startActivity(intent)
         }
-        val btnCancelar = findViewById<LinearLayout>(R.id.btnCancelar)
+        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
             val intent = Intent(this, MenuPrincipalActivity::class.java)
             startActivity(intent)

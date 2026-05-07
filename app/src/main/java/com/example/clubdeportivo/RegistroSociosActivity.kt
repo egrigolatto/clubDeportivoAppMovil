@@ -26,7 +26,7 @@ class RegistroSociosActivity : AppCompatActivity() {
             val intent = Intent(this, MenuPrincipalActivity::class.java)
             startActivity(intent)
         }
-        val btnCancelar = findViewById<LinearLayout>(R.id.btnCancelar)
+        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
             val intent = Intent(this, MenuPrincipalActivity::class.java)
             startActivity(intent)
@@ -45,7 +45,7 @@ class RegistroSociosActivity : AppCompatActivity() {
         val adapterDoc = ArrayAdapter(this, android.R.layout.simple_list_item_1, opciones)
         tipoDoc.setAdapter(adapterDoc)
 
-        val modoPago = findViewById<AutoCompleteTextView>(R.id.modopago)
+        val modoPago = findViewById<AutoCompleteTextView>(R.id.modo_pago)
         val modos = listOf("EFECTIVO", "TARJETA")
         val adapterPag = ArrayAdapter(this, android.R.layout.simple_list_item_1, modos)
         modoPago.setAdapter(adapterPag)

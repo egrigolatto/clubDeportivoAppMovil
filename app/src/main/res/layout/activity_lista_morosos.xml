@@ -1,194 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/fondo"
-    android:padding="30dp">
+    android:background="#15191C"
+    android:fillViewport="true"
+    tools:ignore="ScrollViewSize,UseCompoundDrawables">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="55dp"
-            >
+            android:text="@string/socios_morosos"
+            android:textColor="#9CA3AF"
+            android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/btnVolver"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginRight="0dp"
-                android:src="@drawable/arrow_back_24px"
-                android:contentDescription="arrowback"
-                android:clickable="true"
-                android:focusable="true"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="0dp"
-                android:gravity="center"
-                android:letterSpacing="0.1"
-                android:text="LISTA MOROSOS"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            >
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="03"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:textColor="@color/color_3"
-                android:gravity="center"
-                android:letterSpacing="0.1"
-                android:layout_marginRight="20dp"
-                />
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
 
             <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Apellido y nombre"
-                    android:textColor="@color/color_5"
-                    android:textSize="16sp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Gonzales Ramon"
-                    android:textSize="24sp"
-                    android:textColor="@color/color_5"
-                    android:textStyle="bold"
-                    />
-            </LinearLayout>
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="vencido"
-                android:gravity="center"
-                android:textColor="@color/color_2"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                />
+                android:orientation="vertical"
+                android:paddingStart="22dp"
+                android:paddingTop="24dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="24dp">
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            >
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="04"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:textColor="@color/color_3"
-                android:gravity="center"
-                android:letterSpacing="0.1"
-                android:layout_marginRight="20dp"
-                />
-
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Apellido y nombre"
-                    android:textColor="@color/color_5"
-                    android:textSize="16sp"
-                    />
-                <TextView
+                <!-- Barra superior -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rodriguez Maria"
-                    android:textSize="24sp"
-                    android:textColor="@color/color_5"
+                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/btnVolver"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/volver"
+                        android:focusable="true"
+                        android:padding="12dp"
+                        android:src="@drawable/arrow_back_24px" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:letterSpacing="0.04"
+                        android:text="@string/lista_morosos"
+                        android:textColor="#111111"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:contentDescription="@string/opciones"
+                        android:padding="12dp"
+                        android:src="@drawable/more_vert_24px" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp" />
+
+                <!-- Moroso 03 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="82dp"
+                    app:cardBackgroundColor="#F9FAFB"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#E5E7EB"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="82dp"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="44dp"
+                            android:gravity="center"
+                            android:text="@string/moroso_numero_03"
+                            android:textColor="#6B7280"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="0.06"
+                                android:text="@string/apellido_y_nombre"
+                                android:textColor="#374151"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/moroso_ricardo"
+                                android:textColor="#111111"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="#FEE2E2"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minWidth="78dp"
+                                android:minHeight="32dp"
+                                android:gravity="center"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:text="@string/vencido"
+                                android:textColor="#991B1B"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
+
+                <!-- Moroso 04 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="82dp"
+                    app:cardBackgroundColor="#F9FAFB"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#E5E7EB"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="82dp"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="44dp"
+                            android:gravity="center"
+                            android:text="@string/moroso_numero_04"
+                            android:textColor="#6B7280"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="0.06"
+                                android:text="@string/apellido_y_nombre"
+                                android:textColor="#374151"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/moroso_elena"
+                                android:textColor="#111111"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="#FEE2E2"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minWidth="78dp"
+                                android:minHeight="32dp"
+                                android:gravity="center"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:text="@string/vencido"
+                                android:textColor="#991B1B"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Mensaje sin registros -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="138dp"
+                    app:cardBackgroundColor="#F9FAFB"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#E5E7EB"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="138dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingStart="16dp"
+                        android:paddingTop="18dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="18dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:contentDescription="@string/sin_registros"
+                            android:src="@drawable/error_24px" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="@string/no_hay_mas_registros"
+                            android:textColor="#374151"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Botón volver -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVolverMenu"
+                    android:layout_width="300dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="#111111"
+                    android:text="@string/volver_mayuscula"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    />
+                    app:cornerRadius="18dp" />
+
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="vencido"
-                android:gravity="center"
-                android:textColor="@color/color_2"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                />
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="00dp"
-            android:gravity="center"
-            android:layout_marginBottom="80dp"
-            android:layout_marginTop="50dp"
-            >
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/error_24px"
-                android:layout_margin="20dp"
-                />
-            <TextView
-                android:layout_width="145dp"
-                android:layout_height="match_parent"
-                android:text="No hay más registros pendientes
-de pago en el ciclo actual."
-                android:textColor="@color/color_5"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:letterSpacing="0.1"
-                />
-        </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnVolverMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="VOLVER"
-            android:backgroundTint="@color/black"
-            android:padding="20dp"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-
-            app:cornerRadius="16dp"
-
-            android:layout_marginBottom="20dp"
-            />
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
+
 </ScrollView>

@@ -1,58 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="40dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBF7FC"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:gravity="center">
+    android:paddingStart="28dp"
+    android:paddingTop="78dp"
+    android:paddingEnd="28dp"
+    android:paddingBottom="28dp"
+    tools:ignore="TextContrastCheck">
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/registro_exitoso"
         android:src="@drawable/check_circle_24px"
-        android:layout_marginBottom="40dp"
-        />
+        app:tint="#4B5563" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REGISTRO EXITOSO"
-        android:textSize="16sp"
+        android:gravity="center"
         android:letterSpacing="0.15"
-        android:textStyle="bold"
-        android:textColor="@color/color_3"
-        android:layout_marginBottom="40dp"
-        />
+        android:text="@string/registro_exitoso"
+        android:textColor="#6B7280"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="42dp" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/txtMensajeRegistro"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Juan Pérez fue registrado
-exitosamente con el DNI N° 24375679"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:layout_marginHorizontal="40dp"
         android:gravity="center"
-        />
+        android:lineSpacingExtra="2dp"
+        android:text="@string/registro_exitoso_mensaje"
+        android:textColor="#111111"
+        android:textSize="13sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAceptar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ACEPTAR"
-        android:backgroundTint="@color/black"
-        android:padding="20dp"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#000000"
         android:gravity="center"
-
-        app:cornerRadius="16dp"
-
-        android:layout_marginBottom="20dp"
-        />
-
-
-
+        android:letterSpacing="0.08"
+        android:text="@string/aceptar"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="10dp" />
 
 </LinearLayout>
