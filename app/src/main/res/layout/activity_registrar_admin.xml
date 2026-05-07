@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#15191C"
+    android:orientation="vertical"
+    android:paddingStart="8dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="8dp"
+    tools:ignore="UseCompoundDrawables,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck,Accessibility">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/admin_titulo_pantalla"
+        android:textColor="#9CA3AF"
+        android:textSize="14sp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            tools:ignore="ScrollViewSize">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="18dp"
+                tools:ignore="Accessibility">
+
+                <!-- Encabezado -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    tools:ignore="Accessibility">
+
+                    <ImageView
+                        android:id="@+id/btnVolver"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/volver"
+                        android:focusable="true"
+                        android:padding="12dp"
+                        android:src="@drawable/arrow_back_24px" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:letterSpacing="0.08"
+                        android:text="@string/admin_titulo"
+                        android:textColor="#111111"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:contentDescription="@string/opciones"
+                        android:padding="12dp"
+                        android:src="@drawable/more_vert_24px" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <!-- Información nuevo admin -->
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:minHeight="32dp"
+                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    tools:ignore="Accessibility">
+
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="26dp"
+                        android:background="#111111" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:letterSpacing="0.08"
+                        android:text="@string/admin_info_nuevo"
+                        android:textColor="#111111"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <!-- Formulario -->
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical"
+                    tools:ignore="Accessibility">
+
+                    <!-- Nombre / Apellido -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        tools:ignore="Accessibility">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            tools:ignore="Accessibility">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="0.08"
+                                android:text="@string/admin_nombre"
+                                android:textColor="#4B5563"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/nombre"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:autofillHints="name"
+                                android:backgroundTint="#6B7280"
+                                android:hint="@string/admin_nombre_hint"
+                                android:inputType="textPersonName"
+                                android:paddingStart="0dp"
+                                android:paddingEnd="0dp"
+                                android:textColor="#111111"
+                                android:textColorHint="#6B7280"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            tools:ignore="Accessibility">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="0.08"
+                                android:text="@string/admin_apellido"
+                                android:textColor="#4B5563"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/apellido"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:autofillHints="familyName"
+                                android:backgroundTint="#6B7280"
+                                android:hint="@string/admin_apellido_hint"
+                                android:inputType="textPersonName"
+                                android:paddingStart="0dp"
+                                android:paddingEnd="0dp"
+                                android:textColor="#111111"
+                                android:textColorHint="#6B7280"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
+
+                    <!-- Tipo documento / DNI -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        tools:ignore="Accessibility">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            tools:ignore="Accessibility">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="0.08"
+                                android:text="@string/admin_tipo_documento"
+                                android:textColor="#4B5563"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <AutoCompleteTextView
+                                android:id="@+id/tipoDocumento"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_dropdown_figma"
+                                android:drawableEnd="@drawable/arrow_drop_down_24"
+                                android:drawablePadding="8dp"
+                                android:focusable="false"
+                                android:importantForAutofill="no"
+                                android:inputType="none"
+                                android:minHeight="48dp"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                android:singleLine="true"
+                                android:text="@string/admin_tipo_documento_valor"
+                                android:textColor="#111111"
+                                android:textSize="14sp"
+                                tools:ignore="DuplicateSpeakableTextCheck,SpeakableTextPresentCheck" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            tools:ignore="Accessibility">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="0.08"
+                                android:text="@string/admin_dni"
+                                android:textColor="#4B5563"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/dni"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:autofillHints="username"
+                                android:backgroundTint="#6B7280"
+                                android:hint="@string/admin_dni_hint"
+                                android:inputType="number"
+                                android:paddingStart="0dp"
+                                android:paddingEnd="0dp"
+                                android:textColor="#111111"
+                                android:textColorHint="#6B7280"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="18dp" />
+
+                    <!-- Email -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.08"
+                        android:text="@string/admin_email"
+                        android:textColor="#4B5563"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:autofillHints="emailAddress"
+                        android:backgroundTint="#6B7280"
+                        android:hint="@string/admin_email_hint"
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:textColor="#111111"
+                        android:textColorHint="#6B7280"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="18dp" />
+
+                    <!-- Teléfono -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.08"
+                        android:text="@string/admin_telefono"
+                        android:textColor="#4B5563"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/telefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:autofillHints="phone"
+                        android:backgroundTint="#6B7280"
+                        android:hint="@string/admin_telefono_hint"
+                        android:inputType="phone"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:textColor="#111111"
+                        android:textColorHint="#6B7280"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp" />
+
+                <!-- Botón registrar -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegistrarAdmin"
+                    android:layout_width="300dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="#000000"
+                    android:text="@string/admin_registrar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/person_add_24px"
+                    app:iconGravity="textStart"
+                    app:iconPadding="10dp"
+                    app:iconSize="24dp"
+                    app:iconTint="#FFFFFF" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp" />
+
+                <!-- Botón cancelar -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancelar"
+                    android:layout_width="300dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="#FFFFFF"
+                    android:text="@string/cancelar"
+                    android:textColor="#111111"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.10"
+                    app:cornerRadius="8dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

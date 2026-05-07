@@ -1,0 +1,253 @@
+<resources>
+
+    <!-- ========================= -->
+    <!-- App -->
+    <!-- ========================= -->
+    <string name="app_name">Club Deportivo</string>
+
+    <!-- ========================= -->
+    <!-- Comunes -->
+    <!-- ========================= -->
+    <string name="volver">Volver</string>
+    <string name="opciones">Opciones</string>
+    <string name="cancelar">CANCELAR</string>
+    <string name="confirmar">CONFIRMAR</string>
+    <string name="aceptar">ACEPTAR</string>
+    <string name="ir">Ir</string>
+    <string name="campo_requerido">*</string>
+    <string name="campo_obligatorio">*</string>
+
+    <!-- ========================= -->
+    <!-- Carnet Digital -->
+    <!-- ========================= -->
+    <string name="titulo_pantalla_carnet">Carnet Digital</string>
+    <string name="carnet_digital">CARNET DIGITAL</string>
+    <string name="socio_activo">SOCIO ACTIVO</string>
+    <string name="numero_dni">N° 27.356.003</string>
+    <string name="nombre_del_socio">NOMBRE DEL SOCIO</string>
+    <string name="nombre_socio">JUAN GOMEZ</string>
+    <string name="codigo_qr">Código QR</string>
+    <string name="foto_socio">Foto del socio</string>
+    <string name="fecha_de_alta">FECHA DEL ALTA</string>
+    <string name="fecha_alta_valor">07/11/25</string>
+    <string name="estado">ESTADO</string>
+    <string name="valido_hasta">VÁLIDO HASTA 2026</string>
+    <string name="mensaje_carnet">Presenta este carnet para acceder a las\ninstalaciones del club.</string>
+    <string name="compartir">COMPARTIR</string>
+
+    <!-- ========================= -->
+    <!-- Lista Morosos -->
+    <!-- ========================= -->
+    <string name="socios_morosos">Socios morosos</string>
+    <string name="lista_morosos">LISTA MOROSOS</string>
+    <string name="apellido_y_nombre">APELLIDO Y NOMBRE</string>
+    <string name="moroso_numero_03">03</string>
+    <string name="moroso_numero_04">04</string>
+    <string name="moroso_ricardo">González, Ricardo</string>
+    <string name="moroso_elena">Martínez, Elena</string>
+    <string name="vencido">VENCIDO</string>
+    <string name="sin_registros">Sin registros pendientes</string>
+    <string name="no_hay_mas_registros">No hay más registros pendientes\nde pago en el ciclo actual.</string>
+    <string name="volver_mayuscula">VOLVER</string>
+
+    <!-- ========================= -->
+    <!-- Login -->
+    <!-- ========================= -->
+    <string name="iniciar_sesion_titulo">Iniciar Sesión</string>
+    <string name="logo_club">Logo del club</string>
+    <string name="club_deportivo">CLUB DEPORTIVO</string>
+    <string name="acceso_usuarios">ACCESO USUARIOS</string>
+    <string name="iniciar_sesion">INICIAR SESIÓN</string>
+    <string name="usuario">USUARIO</string>
+    <string name="numero_dni_hint">Número de DNI</string>
+    <string name="contrasena">CONTRASEÑA</string>
+    <string name="password_hint">*************</string>
+    <string name="error_login">Usuario o contraseña incorrectos</string>
+    <string name="ingresar">INGRESAR</string>
+
+    <!-- ========================= -->
+    <!-- Menú Principal -->
+    <!-- ========================= -->
+    <string name="menu_principal_titulo_pantalla">Menú Principal</string>
+    <string name="configuracion">Configuración</string>
+    <string name="rol_administrador">ROL: ADMINISTRADOR</string>
+    <string name="usuario_actual">User: user_01</string>
+    <string name="menu_principal">MENÚ PRINCIPAL</string>
+    <string name="menu_numero_01">01</string>
+    <string name="menu_numero_02">02</string>
+    <string name="menu_numero_03">03</string>
+    <string name="menu_numero_04">04</string>
+    <string name="menu_numero_05">05</string>
+    <string name="registrar_socio">REGISTRAR SOCIO</string>
+    <string name="registrar_no_socio">REGISTRAR NO SOCIO</string>
+    <string name="pagar_cuota">PAGAR CUOTA</string>
+    <string name="registrar_admin">REGISTRAR ADMIN</string>
+    <string name="salir_del_sistema">SALIR DEL SISTEMA</string>
+
+    <!-- ========================= -->
+    <!-- Pagar Cuota -->
+    <!-- ========================= -->
+    <string name="pagar_cuota_titulo_pantalla">Pagar Cuota</string>
+    <string name="pagar_cuota_descripcion">Ingrese los datos para procesar el pago administrativo.</string>
+    <string name="informacion_cliente">INFORMACIÓN DEL CLIENTE</string>
+    <string name="dni_cliente">DNI DEL CLIENTE</string>
+    <string name="dni_cliente_hint">Ingrese DNI</string>
+    <string name="error_dni_cliente">Debe ingresar un DNI válido</string>
+    <string name="validacion_identidad">Validación de Identidad</string>
+    <string name="validacion_dni_mensaje">Asegúrese de que el DNI coincida exactamente con la ficha del cliente en el sistema central.</string>
+
+    <!-- ========================= -->
+    <!-- Pagar Cuota Diaria -->
+    <!-- ========================= -->
+    <string name="pagar_cuota_diaria_titulo_pantalla">Pagar Cuota Diaria</string>
+    <string name="pagar_cuota_diaria">PAGAR CUOTA DIARIA</string>
+    <string name="no_socio">NO SOCIO</string>
+    <string name="nombre_no_socio">RODRÍGUEZ EMMA</string>
+    <string name="seleccionar_actividades">SELECCIONAR ACTIVIDADES</string>
+    <string name="actividad_natacion">Natación</string>
+    <string name="actividad_musculacion">Musculación</string>
+    <string name="actividad_yoga">Yoga</string>
+    <string name="actividad_futbol">Fútbol</string>
+    <string name="actividad_pilates">Pilates</string>
+    <string name="acceso_diario">Acceso Diario</string>
+    <string name="precio_natacion">$ 1.500,00</string>
+    <string name="precio_musculacion">$ 1.200,00</string>
+    <string name="precio_yoga">$ 800,00</string>
+    <string name="precio_futbol">$ 1.000,00</string>
+    <string name="precio_pilates">$ 900,00</string>
+    <string name="modo_pago">MODO DE PAGO</string>
+    <string name="efectivo">Efectivo</string>
+    <string name="total_monto_pagar">EL TOTAL DEL MONTO A PAGAR ES:</string>
+    <string name="total_cero">$ 0,00</string>
+    <string name="confirmar_pago">CONFIRMAR PAGO</string>
+    <string name="seleccionar_natacion">Seleccionar Natación</string>
+    <string name="seleccionar_musculacion">Seleccionar Musculación</string>
+    <string name="seleccionar_yoga">Seleccionar Yoga</string>
+    <string name="seleccionar_futbol">Seleccionar Fútbol</string>
+    <string name="seleccionar_pilates">Seleccionar Pilates</string>
+
+    <!-- ========================= -->
+    <!-- Pagar Cuota Mensual -->
+    <!-- ========================= -->
+    <string name="pagar_cuota_mensual_titulo_pantalla">Pagar Cuota Mensual</string>
+    <string name="pagar_cuota_mensual">PAGAR CUOTA MENSUAL</string>
+    <string name="identificacion_cliente">IDENTIFICACIÓN DEL CLIENTE</string>
+    <string name="socio_label">Socio:</string>
+    <string name="nombre_socio_mensual">JUAN GOMEZ</string>
+    <string name="id">ID</string>
+    <string name="vencimiento">VENCIMIENTO</string>
+    <string name="precio">PRECIO</string>
+    <string name="cuota_id_01">01</string>
+    <string name="cuota_id_02">02</string>
+    <string name="cuota_id_03">03</string>
+    <string name="cuota_id_04">04</string>
+    <string name="vencimiento_cuota">10/12/2025</string>
+    <string name="precio_cuota_mensual">20.000</string>
+    <string name="resumen_pago">RESUMEN DE PAGO</string>
+    <string name="monto_total_pagar">El monto total a pagar es:</string>
+    <string name="total_mensual">$ 80.000</string>
+
+    <!-- ========================= -->
+    <!-- Pagar Cuota Mensual - Versión por Mes -->
+    <!-- ========================= -->
+    <string name="mensual_titulo_pantalla">Pagar Cuota Mensual</string>
+    <string name="mensual_titulo">PAGAR CUOTA MENSUAL</string>
+    <string name="mensual_identificacion_cliente">IDENTIFICACIÓN DEL CLIENTE</string>
+    <string name="mensual_socio_label">Socio:</string>
+    <string name="mensual_nombre_socio">JUAN GOMEZ</string>
+    <string name="mensual_cuotas_pendientes">CUOTAS PENDIENTES</string>
+    <string name="mensual_columna_mes">MES</string>
+    <string name="mensual_columna_vencimiento">VENCIMIENTO</string>
+    <string name="mensual_columna_importe">IMPORTE</string>
+    <string name="mensual_mes_enero">ENERO</string>
+    <string name="mensual_mes_febrero">FEBRERO</string>
+    <string name="mensual_mes_marzo">MARZO</string>
+    <string name="mensual_mes_abril">ABRIL</string>
+    <string name="mensual_cuota_01">Cuota 01</string>
+    <string name="mensual_cuota_02">Cuota 02</string>
+    <string name="mensual_cuota_03">Cuota 03</string>
+    <string name="mensual_cuota_04">Cuota 04</string>
+    <string name="mensual_vencimiento_enero">10/01/2026</string>
+    <string name="mensual_vencimiento_febrero">10/02/2026</string>
+    <string name="mensual_vencimiento_marzo">10/03/2026</string>
+    <string name="mensual_vencimiento_abril">10/04/2026</string>
+    <string name="mensual_precio_cuota">20.000</string>
+    <string name="mensual_resumen_pago">RESUMEN DE PAGO</string>
+    <string name="mensual_monto_total">El monto total a pagar es:</string>
+    <string name="mensual_total">$ 80.000</string>
+
+    <!-- ========================= -->
+    <!-- Registro Admin -->
+    <!-- ========================= -->
+    <string name="admin_titulo_pantalla">Registro Admin</string>
+    <string name="admin_titulo">REGISTRO ADMIN</string>
+    <string name="admin_info_nuevo">INFORMACIÓN NUEVO ADMIN</string>
+    <string name="admin_nombre">NOMBRE</string>
+    <string name="admin_nombre_hint">Ingrese nombre</string>
+    <string name="admin_apellido">APELLIDO</string>
+    <string name="admin_apellido_hint">Ingrese apellido</string>
+    <string name="admin_tipo_documento">TIPO DOCUMENTO</string>
+    <string name="admin_tipo_documento_valor">DNI</string>
+    <string name="admin_dni">DNI</string>
+    <string name="admin_dni_hint">Ingrese DNI</string>
+    <string name="admin_email">EMAIL</string>
+    <string name="admin_email_hint">Ingrese email</string>
+    <string name="admin_telefono">TELÉFONO</string>
+    <string name="admin_telefono_hint">Ingrese teléfono</string>
+    <string name="admin_registrar">REGISTRAR</string>
+
+    <!-- ========================= -->
+    <!-- Registro No Socio -->
+    <!-- ========================= -->
+    <string name="no_socio_titulo_pantalla">Registrar No Socio</string>
+    <string name="no_socio_titulo">REGISTRAR NO SOCIO</string>
+    <string name="no_socio_descripcion">Complete los datos a continuación para agregar un nuevo invitado al sistema.</string>
+    <string name="no_socio_info_cliente">INFORMACIÓN DEL CLIENTE</string>
+    <string name="no_socio_nombre">NOMBRE</string>
+    <string name="no_socio_nombre_hint">Ingrese nombre</string>
+    <string name="no_socio_apellido">APELLIDO</string>
+    <string name="no_socio_apellido_hint">Ingrese apellido</string>
+    <string name="no_socio_tipo_documento">TIPO DOCUMENTO</string>
+    <string name="no_socio_tipo_documento_valor">DNI</string>
+    <string name="no_socio_numero">NÚMERO</string>
+    <string name="no_socio_dni_hint">Ingrese número</string>
+    <string name="no_socio_email">EMAIL</string>
+    <string name="no_socio_email_hint">Ingrese email</string>
+    <string name="no_socio_telefono">TELÉFONO</string>
+    <string name="no_socio_telefono_hint">Ingrese teléfono</string>
+    <string name="no_socio_apto_fisico">APTO FÍSICO</string>
+    <string name="no_socio_registrar">REGISTRAR</string>
+
+    <!-- ========================= -->
+    <!-- Registro Socio -->
+    <!-- ========================= -->
+    <string name="socio_titulo_pantalla">Registrar Socio</string>
+    <string name="socio_titulo">REGISTRO SOCIOS</string>
+    <string name="socio_info_cliente">INFORMACIÓN DEL CLIENTE</string>
+    <string name="socio_nombre">NOMBRE</string>
+    <string name="socio_nombre_hint">Ingrese nombre</string>
+    <string name="socio_apellido">APELLIDO</string>
+    <string name="socio_apellido_hint">Ingrese apellido</string>
+    <string name="socio_tipo_documento">TIPO DOCUMENTO</string>
+    <string name="socio_tipo_documento_valor">DNI</string>
+    <string name="socio_dni">DNI</string>
+    <string name="socio_dni_hint">Ingrese DNI</string>
+    <string name="socio_email">EMAIL</string>
+    <string name="socio_email_hint">Ingrese email</string>
+    <string name="socio_telefono">TELÉFONO</string>
+    <string name="socio_telefono_hint">Ingrese teléfono</string>
+    <string name="socio_apto_fisico">APTO FÍSICO</string>
+    <string name="socio_detalles_pago">DETALLES DEL PAGO</string>
+    <string name="socio_modo_pago">MODO DE PAGO</string>
+    <string name="socio_modo_pago_valor">Efectivo</string>
+    <string name="socio_total_pagar">TOTAL A PAGAR</string>
+    <string name="socio_monto_pagar">$ 20.000</string>
+    <string name="socio_registrar">REGISTRAR</string>
+
+    <!-- ========================= -->
+    <!-- Registro Exitoso -->
+    <!-- ========================= -->
+    <string name="registro_exitoso">REGISTRO EXITOSO</string>
+    <string name="registro_exitoso_mensaje">Juan Pérez fue registrado exitosamente con el DNI N° 24375679</string>
+
+</resources>
