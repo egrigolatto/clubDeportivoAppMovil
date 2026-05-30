@@ -1,4 +1,4 @@
-package com.example.clubdeportivo
+package com.example.clubdeportivo.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,15 +7,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.database.DatabaseHelper
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val dbHelper = DatabaseHelper(this)
+
+        val db = dbHelper.writableDatabase
+
+        db.close()
 
         val dni = "1234"
         val contrasenia = "1234"

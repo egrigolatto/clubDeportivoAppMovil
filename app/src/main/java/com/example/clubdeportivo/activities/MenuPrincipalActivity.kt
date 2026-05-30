@@ -1,4 +1,4 @@
-package com.example.clubdeportivo
+package com.example.clubdeportivo.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import android.widget.LinearLayout
 import android.widget.Button
-import android.widget.TextView
-
+import com.example.clubdeportivo.R
 
 
 class MenuPrincipalActivity : AppCompatActivity() {

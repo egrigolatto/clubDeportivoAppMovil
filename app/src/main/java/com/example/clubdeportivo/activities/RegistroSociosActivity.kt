@@ -1,19 +1,13 @@
-package com.example.clubdeportivo
+package com.example.clubdeportivo.activities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.widget.ImageView
 import android.content.Intent
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
-import android.widget.LinearLayout
-
-
-
+import com.example.clubdeportivo.R
 
 
 class RegistroSociosActivity : AppCompatActivity() {

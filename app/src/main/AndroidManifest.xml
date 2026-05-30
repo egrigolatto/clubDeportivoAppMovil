@@ -12,34 +12,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClubDeportivo">
         <activity
-            android:name=".RegistrarAdminActivity"
+            android:name=".activities.RegistrarAdminActivity"
             android:exported="false" />
         <activity
-            android:name=".ListaMorososActivity"
+            android:name=".activities.ListaMorososActivity"
             android:exported="false" />
         <activity
-            android:name=".PagarCuotaDiariaActivity"
+            android:name=".activities.PagarCuotaDiariaActivity"
             android:exported="false" />
         <activity
-            android:name=".PagarCuotaMensualActivity"
+            android:name=".activities.PagarCuotaMensualActivity"
             android:exported="false" />
         <activity
-            android:name=".PagarCuotaActivity"
+            android:name=".activities.PagarCuotaActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroNoSociosActivity"
+            android:name=".activities.RegistroNoSociosActivity"
             android:exported="false" />
         <activity
-            android:name=".CarnetDigitalActivity"
+            android:name=".activities.CarnetDigitalActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroSociosActivity"
+            android:name=".activities.RegistroSociosActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuPrincipalActivity"
+            android:name=".activities.MenuPrincipalActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
