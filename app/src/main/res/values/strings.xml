@@ -70,8 +70,8 @@
     <!-- ========================= -->
     <string name="menu_principal_titulo_pantalla">Menú Principal</string>
     <string name="configuracion">Configuración</string>
-    <string name="rol_administrador">ROL: ADMINISTRADOR</string>
-    <string name="usuario_actual">User: user_01</string>
+    <string name="rol_administrador">ROL:</string>
+    <string name="usuario_actual">Usuario:</string>
     <string name="menu_principal">MENÚ PRINCIPAL</string>
     <string name="menu_numero_01">01</string>
     <string name="menu_numero_02">02</string>

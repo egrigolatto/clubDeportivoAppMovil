@@ -10,20 +10,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clubdeportivo.R
 import com.example.clubdeportivo.database.DatabaseHelper
+import com.example.clubdeportivo.database.dao.UsuarioDao
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // Fuerza la creación de la base de datos si aún no existe
         val dbHelper = DatabaseHelper(this)
+        dbHelper.writableDatabase
+        dbHelper.close()
 
-        val db = dbHelper.writableDatabase
+        val usuarioDao = UsuarioDao(this)
 
-        db.close()
-
-        val dni = "1234"
-        val contrasenia = "1234"
 
 
         val usuario = findViewById<EditText>(R.id.usuario)
@@ -34,22 +34,46 @@ class LoginActivity : AppCompatActivity() {
 
         btnIngresar.setOnClickListener {
 
-            val usuarioTexto = usuario.text.toString().trim()
-            val passwordTexto = password.text.toString().trim()
+            val dni = usuario.text.toString().trim()
+            val contrasenia = password.text.toString().trim()
 
-            if (usuarioTexto.isEmpty() || passwordTexto.isEmpty()) {
+
+            if (dni.isEmpty() || contrasenia.isEmpty()) {
                 mostrarError(mensajeErrorLogin, "Complete los campos")
                 return@setOnClickListener
             }
 
-            if (usuarioTexto != dni || passwordTexto != contrasenia) {
-                mostrarError(mensajeErrorLogin, "Datos incorrectos")
+            val usuarioLogueado = usuarioDao.login(
+                dni,
+                contrasenia
+            )
+
+            if (usuarioLogueado == null) {
+                mostrarError(
+                    mensajeErrorLogin,
+                    "Datos incorrectos"
+                )
                 return@setOnClickListener
             }
 
-            Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MenuPrincipalActivity::class.java)
+            Toast.makeText(
+                this,
+                "Bienvenido ${usuarioLogueado.nombre}",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            val intent = Intent(
+                this,
+                MenuPrincipalActivity::class.java
+            )
+
+            intent.putExtra(
+                "idUsuario",
+                usuarioLogueado.idUsuario
+            )
+
             startActivity(intent)
+            finish()
 
         }
 
