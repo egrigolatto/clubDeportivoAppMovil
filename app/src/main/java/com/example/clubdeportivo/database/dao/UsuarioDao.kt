@@ -1,5 +1,6 @@
 package com.example.clubdeportivo.database.dao
 
+import android.content.ContentValues
 import android.content.Context
 import com.example.clubdeportivo.database.DatabaseHelper
 import com.example.clubdeportivo.models.Usuario
@@ -121,6 +122,62 @@ class UsuarioDao(
         db.close()
 
         return usuario
+    }
+
+    fun existeDni(
+        dni: String
+    ): Boolean {
+
+        val db = dbHelper.readableDatabase
+
+        val cursor = db.rawQuery(
+            """
+        SELECT 1
+        FROM usuarios
+        WHERE dni = ?
+        LIMIT 1
+        """.trimIndent(),
+            arrayOf(dni)
+        )
+
+        val existe = cursor.moveToFirst()
+
+        cursor.close()
+        db.close()
+
+        return existe
+    }
+
+    fun insertar(
+        usuario: Usuario
+    ): Long {
+
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply {
+
+            put("dni", usuario.dni)
+
+            put("nombre", usuario.nombre)
+
+            put("apellido", usuario.apellido)
+
+            put("password_usuario", usuario.passwordUsuario)
+
+            put("id_rol", usuario.idRol)
+
+            put("activo", if (usuario.activo) 1 else 0)
+        }
+
+        val resultado = db.insert(
+            "usuarios",
+            null,
+            values
+        )
+
+        db.close()
+
+        return resultado
     }
 }
 

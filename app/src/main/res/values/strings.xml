@@ -81,7 +81,7 @@
     <string name="registrar_socio">REGISTRAR SOCIO</string>
     <string name="registrar_no_socio">REGISTRAR NO SOCIO</string>
     <string name="pagar_cuota">PAGAR CUOTA</string>
-    <string name="registrar_admin">REGISTRAR ADMIN</string>
+    <string name="registrar_usuario">REGISTRAR USUARIO</string>
     <string name="salir_del_sistema">SALIR DEL SISTEMA</string>
 
     <!-- ========================= -->
@@ -177,24 +177,26 @@
     <string name="mensual_total">$ 80.000</string>
 
     <!-- ========================= -->
-    <!-- Registro Admin -->
+    <!-- Registro Usuario -->
     <!-- ========================= -->
-    <string name="admin_titulo_pantalla">Registro Admin</string>
-    <string name="admin_titulo">REGISTRO ADMIN</string>
-    <string name="admin_info_nuevo">INFORMACIÓN NUEVO ADMIN</string>
-    <string name="admin_nombre">NOMBRE</string>
-    <string name="admin_nombre_hint">Ingrese nombre</string>
-    <string name="admin_apellido">APELLIDO</string>
-    <string name="admin_apellido_hint">Ingrese apellido</string>
-    <string name="admin_tipo_documento">TIPO DOCUMENTO</string>
-    <string name="admin_tipo_documento_valor">DNI</string>
-    <string name="admin_dni">DNI</string>
-    <string name="admin_dni_hint">Ingrese DNI</string>
-    <string name="admin_email">EMAIL</string>
-    <string name="admin_email_hint">Ingrese email</string>
-    <string name="admin_telefono">TELÉFONO</string>
-    <string name="admin_telefono_hint">Ingrese teléfono</string>
-    <string name="admin_registrar">REGISTRAR</string>
+    <string name="usuario_titulo_pantalla">Registro Usuario</string>
+    <string name="usuario_titulo">REGISTRO USUARIO</string>
+    <string name="usuario_info_nuevo">INFORMACIÓN NUEVO USUARIO</string>
+    <string name="usuario_nombre">NOMBRE</string>
+    <string name="usuario_nombre_hint">Ingrese nombre</string>
+    <string name="usuario_apellido">APELLIDO</string>
+    <string name="usuario_apellido_hint">Ingrese apellido</string>
+    <string name="usuario_tipo_documento">TIPO DOCUMENTO</string>
+    <string name="usuario_tipo_documento_valor">DNI</string>
+    <string name="usuario_dni">DNI</string>
+    <string name="usuario_dni_hint">Ingrese DNI</string>
+    <string name="usuario_contrasenia1">CONTRASEÑA</string>
+    <string name="usuario_contrasenia_hint1">Ingrese contraseña</string>
+    <string name="usuario_contrasenia2">REPITA LA CONTRASEÑA</string>
+    <string name="usuario_contrasenia_hint2">Ingrese contraseña</string>
+    <string name="usuario_registrar">REGISTRAR</string>
+    <string name="usuario_rol">ROL</string>
+    <string name="usuario_rol_valor">Empleado</string>
 
     <!-- ========================= -->
     <!-- Registro No Socio -->

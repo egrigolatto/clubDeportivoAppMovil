@@ -35,7 +35,7 @@ class RegistroSociosActivity : AppCompatActivity() {
 
 
         val tipoDoc = findViewById<AutoCompleteTextView>(R.id.tipoDocumento)
-        val opciones = listOf("DNI", "Pasaporte", "CUIL")
+        val opciones = listOf("DNI", "Pasaporte")
         val adapterDoc = ArrayAdapter(this, android.R.layout.simple_list_item_1, opciones)
         tipoDoc.setAdapter(adapterDoc)
 

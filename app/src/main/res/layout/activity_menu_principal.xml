@@ -352,7 +352,7 @@
                         android:layout_marginStart="14dp"
                         android:layout_weight="1"
                         android:letterSpacing="0.08"
-                        android:text="@string/registrar_admin"
+                        android:text="@string/registrar_usuario"
                         android:textColor="#111111"
                         android:textSize="14sp"
                         android:textStyle="bold" />

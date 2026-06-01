@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:lineSpacingExtra="2dp"
-        android:text="@string/registro_exitoso_mensaje"
+        android:text=""
         android:textColor="#111111"
         android:textSize="13sp" />
 

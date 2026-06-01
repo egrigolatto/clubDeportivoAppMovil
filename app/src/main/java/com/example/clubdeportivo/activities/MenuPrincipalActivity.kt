@@ -73,7 +73,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
 
         val btnCardRegistrarAdmin = findViewById<LinearLayout>(R.id.cardRegistrarAdmin)
         btnCardRegistrarAdmin.setOnClickListener {
-            val intent = Intent(this, RegistrarAdminActivity::class.java)
+            val intent = Intent(this, RegistrarUsuarioActivity::class.java)
             startActivity(intent)
         }
 
