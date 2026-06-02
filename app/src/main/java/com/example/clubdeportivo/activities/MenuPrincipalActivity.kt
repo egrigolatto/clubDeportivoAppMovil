@@ -3,6 +3,7 @@ package com.example.clubdeportivo.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 import android.widget.LinearLayout
@@ -17,6 +18,13 @@ class MenuPrincipalActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_principal)
+
+        val btnCardRegistrarSocio = findViewById<LinearLayout>(R.id.cardRegistrarSocio)
+        val btnCardRegistrarNoSocio = findViewById<LinearLayout>(R.id.cardRegistrarNoSocio)
+        val btnCardPagarCuota = findViewById<LinearLayout>(R.id.cardPagarCuota)
+        val btnCardListaMorosos = findViewById<LinearLayout>(R.id.cardListaMorosos)
+        val btnCardRegistrarUsuario = findViewById<LinearLayout>(R.id.cardRegistrarAdmin)
+        val btnSalirApp = findViewById<Button>(R.id.btnSalirApp)
 
 
         val txtUsuario =  findViewById<TextView>(R.id.txtUsuario)
@@ -34,6 +42,12 @@ class MenuPrincipalActivity : AppCompatActivity() {
 
         if (usuario != null) {
 
+            if (usuario.idRol != 1) {
+                // ocultar la card de registrar usuario a los empleados
+                btnCardRegistrarUsuario.visibility =
+                    View.GONE
+            }
+
            txtUsuario.text = "${usuario.nombre} ${usuario.apellido}"
 
            val rol = when(usuario.idRol) {
@@ -45,41 +59,26 @@ class MenuPrincipalActivity : AppCompatActivity() {
             txtRol.text = rol
         }
 
-
-
-        val btnCardRegistrarSocio = findViewById<LinearLayout>(R.id.cardRegistrarSocio)
         btnCardRegistrarSocio.setOnClickListener {
             val intent = Intent(this, RegistroSociosActivity::class.java)
             startActivity(intent)
         }
-
-        val btnCardRegistrarNoSocio = findViewById<LinearLayout>(R.id.cardRegistrarNoSocio)
         btnCardRegistrarNoSocio.setOnClickListener {
             val intent = Intent(this, RegistroNoSociosActivity::class.java)
             startActivity(intent)
         }
-
-        val btnCardPagarCuota = findViewById<LinearLayout>(R.id.cardPagarCuota)
         btnCardPagarCuota.setOnClickListener {
             val intent = Intent(this, PagarCuotaActivity::class.java)
             startActivity(intent)
         }
-
-        val btnCardListaMorosos = findViewById<LinearLayout>(R.id.cardListaMorosos)
         btnCardListaMorosos.setOnClickListener {
             val intent = Intent(this, ListaMorososActivity::class.java)
             startActivity(intent)
         }
-
-        val btnCardRegistrarAdmin = findViewById<LinearLayout>(R.id.cardRegistrarAdmin)
-        btnCardRegistrarAdmin.setOnClickListener {
+        btnCardRegistrarUsuario.setOnClickListener {
             val intent = Intent(this, RegistrarUsuarioActivity::class.java)
             startActivity(intent)
         }
-
-
-
-        val btnSalirApp = findViewById<Button>(R.id.btnSalirApp)
         btnSalirApp.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)

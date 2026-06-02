@@ -16,6 +16,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         // Crear tablas
         db.execSQL(DatabaseContract.CREATE_ROLES)
         db.execSQL(DatabaseContract.CREATE_USUARIOS)
+        db.execSQL(DatabaseContract.CREATE_TIPOS_DOCUMENTO)
+        db.execSQL(DatabaseContract.CREATE_CLIENTES)
+
 
         // Insertar datos iniciales
         insertarDatosIniciales(db)
@@ -29,6 +32,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 
         db.execSQL("DROP TABLE IF EXISTS usuarios")
         db.execSQL("DROP TABLE IF EXISTS roles")
+        db.execSQL("DROP TABLE IF EXISTS tipos_documento ")
+        db.execSQL("DROP TABLE IF EXISTS clientes ")
 
         onCreate(db)
     }
@@ -38,6 +43,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         insertarRoles(db)
 
         insertarAdministrador(db)
+
+        insertarTiposDocumento(db)
+
+        insertarCliente(db)
     }
 
     private fun insertarRoles(db: SQLiteDatabase) {
@@ -50,7 +59,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         db.execSQL("""
             INSERT INTO roles(nombre)
             VALUES ('Empleado')
-        """)
+        """.trimIndent())
     }
 
     private fun insertarAdministrador(db: SQLiteDatabase) {
@@ -72,6 +81,47 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             1,
             1
         )
-    """)
+    """.trimIndent())
+    }
+
+    private fun insertarTiposDocumento(db: SQLiteDatabase) {
+
+        db.execSQL("""
+            INSERT INTO tipos_documento(nombre)
+            VALUES ('DNI')
+        """)
+
+        db.execSQL("""
+            INSERT INTO tipos_documento(nombre)
+            VALUES ('Pasaporte')
+        """.trimIndent())
+    }
+
+    private fun insertarCliente(db: SQLiteDatabase){
+
+        db.execSQL("""
+        INSERT INTO clientes(
+            nombre,
+            apellido,
+            tipo_documento,
+            numero_documento,
+            email,
+            telefono,
+            es_socio,
+            apto_fisico,
+            estado
+        )
+        VALUES(
+            'Juan',
+            'Perez',
+            1,
+            '99999999',
+            'juan@gmail.com',
+            '3434123456',
+            1,
+            1,
+            'activo'
+        )
+    """.trimIndent())
     }
 }

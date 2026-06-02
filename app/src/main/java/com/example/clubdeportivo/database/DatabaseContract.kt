@@ -25,4 +25,32 @@ object DatabaseContract {
             REFERENCES roles(id_rol)
     )
     """
+
+    const val CREATE_TIPOS_DOCUMENTO ="""
+    CREATE TABLE tipos_documento(
+    id_tipo_documento INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL
+    )
+    """
+
+    const val CREATE_CLIENTES = """
+    CREATE TABLE clientes(
+        id_cliente INTEGER PRIMARY KEY AUTOINCREMENT,
+        fecha_alta DATETIME DEFAULT CURRENT_TIMESTAMP,
+        nombre TEXT NOT NULL,
+        apellido TEXT NOT NULL,
+        tipo_documento INTEGER NOT NULL,
+        numero_documento TEXT NOT NULL,
+        email TEXT,
+        telefono TEXT,
+        es_socio INTEGER NOT NULL,
+        apto_fisico INTEGER NOT NULL,
+        estado TEXT DEFAULT 'activo',
+
+        FOREIGN KEY(tipo_documento)
+            REFERENCES tipos_documento(id_tipo_documento),
+
+        UNIQUE(tipo_documento, numero_documento)
+    )
+"""
 }
