@@ -59,7 +59,7 @@
     <string name="acceso_usuarios">ACCESO USUARIOS</string>
     <string name="iniciar_sesion">INICIAR SESIÓN</string>
     <string name="usuario">USUARIO</string>
-    <string name="numero_dni_hint">Número de DNI</string>
+    <string name="numero_documento_hint">Número de Documento</string>
     <string name="contrasena">CONTRASEÑA</string>
     <string name="password_hint">*************</string>
     <string name="error_login">Usuario o contraseña incorrectos</string>
@@ -188,8 +188,8 @@
     <string name="usuario_apellido_hint">Ingrese apellido</string>
     <string name="usuario_tipo_documento">TIPO DOCUMENTO</string>
     <string name="usuario_tipo_documento_valor">DNI</string>
-    <string name="usuario_dni">DNI</string>
-    <string name="usuario_dni_hint">Ingrese DNI</string>
+    <string name="usuario_documento">DOCUMENTO</string>
+    <string name="usuario_documento_hint">Ingrese DNI</string>
     <string name="usuario_contrasenia1">CONTRASEÑA</string>
     <string name="usuario_contrasenia_hint1">Ingrese contraseña</string>
     <string name="usuario_contrasenia2">REPITA LA CONTRASEÑA</string>

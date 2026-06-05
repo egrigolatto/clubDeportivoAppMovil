@@ -264,21 +264,21 @@
                             tools:ignore="Accessibility">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:letterSpacing="0.08"
-                                android:text="@string/usuario_dni"
+                                android:text="@string/usuario_documento"
                                 android:textColor="#4B5563"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
                             <EditText
-                                android:id="@+id/dni"
+                                android:id="@+id/numeroDocumento"
                                 android:layout_width="match_parent"
                                 android:layout_height="48dp"
                                 android:autofillHints="username"
                                 android:backgroundTint="#6B7280"
-                                android:hint="@string/usuario_dni_hint"
+                                android:hint="@string/usuario_documento_hint"
                                 android:inputType="number"
                                 android:paddingStart="0dp"
                                 android:paddingEnd="0dp"

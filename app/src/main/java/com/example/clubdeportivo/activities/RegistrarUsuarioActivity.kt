@@ -1,6 +1,5 @@
 package com.example.clubdeportivo.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -12,7 +11,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clubdeportivo.R
-import android.util.Log
 import com.example.clubdeportivo.database.dao.UsuarioDao
 import com.example.clubdeportivo.models.Usuario
 
@@ -20,8 +18,8 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
     private lateinit var txtNombre: EditText
     private lateinit var txtApellido: EditText
-    private lateinit var txtDni: EditText
-    private lateinit var tipoDoc: AutoCompleteTextView
+    private lateinit var txtNumeroDocumento: EditText
+    private lateinit var tipoDocumento: AutoCompleteTextView
     private lateinit var tipoRol: AutoCompleteTextView
     private lateinit var txtPassword1: EditText
     private lateinit var txtPassword2: EditText
@@ -59,7 +57,9 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
             val apellido = txtApellido.text.toString().trim()
 
-            val dni = txtDni.text.toString().trim()
+            val tipoDocumento = 1
+
+            val numeroDocumento = txtNumeroDocumento.text.toString().trim()
 
             val password1 = txtPassword1.text.toString()
 
@@ -69,7 +69,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
             if (nombre.isEmpty()
                 || apellido.isEmpty()
-                || dni.isEmpty()
+                || numeroDocumento.isEmpty()
                 || password1.isEmpty()
                 || password2.isEmpty()
             ) {
@@ -83,16 +83,17 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
             val usuarioDao = UsuarioDao(this)
 
-            if (usuarioDao.existeDni(dni)) {
+            if (usuarioDao.existeDocumento(tipoDocumento, numeroDocumento)) {
                 mostrarError(
                     mensajeError,
-                    "Ya existe un usuario con ese DNI"
+                    "Ya existe un usuario con ese Nro. de documento"
                 )
                 return@setOnClickListener
             }
 
             val usuario = Usuario(
-                dni = dni,
+                tipoDocumento = tipoDocumento,
+                numeroDocumento = numeroDocumento,
                 nombre = nombre,
                 apellido = apellido,
                 passwordUsuario = password1,
@@ -113,7 +114,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
                        Usuario registrado correctamente
                        Nombre: $nombre
                        Apellido: $apellido
-                       DNI: $dni
+                       Documento: $numeroDocumento
                        """.trimIndent()
 
                 val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
@@ -132,7 +133,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
                     txtApellido.text.clear()
 
-                    txtDni.text.clear()
+                    txtNumeroDocumento.text.clear()
 
                     txtPassword1.text.clear()
 
@@ -155,8 +156,8 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
         txtNombre = findViewById(R.id.nombre)
         txtApellido = findViewById(R.id.apellido)
-        txtDni = findViewById(R.id.dni)
-        tipoDoc = findViewById(R.id.tipoDocumento)
+        txtNumeroDocumento = findViewById(R.id.numeroDocumento)
+        tipoDocumento = findViewById(R.id.tipoDocumento)
         tipoRol = findViewById(R.id.rol)
         txtPassword1 = findViewById(R.id.password1)
         txtPassword2 = findViewById(R.id.password2)
@@ -176,13 +177,13 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
             opciones
         )
 
-        tipoDoc.setAdapter(adapter)
+        tipoDocumento.setAdapter(adapter)
 
-        tipoDoc.setOnClickListener {
-            tipoDoc.showDropDown()
+        tipoDocumento.setOnClickListener {
+            tipoDocumento.showDropDown()
         }
 
-        tipoDoc.setText(opciones[0], false)
+        tipoDocumento.setText(opciones[0], false)
     }
 
     private fun configurarRoles() {

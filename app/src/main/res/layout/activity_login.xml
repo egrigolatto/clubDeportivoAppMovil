@@ -134,7 +134,7 @@
                     android:layout_gravity="center_horizontal"
                     android:autofillHints="username"
                     android:backgroundTint="#6B7280"
-                    android:hint="@string/numero_dni_hint"
+                    android:hint="@string/numero_documento_hint"
                     android:inputType="number"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"

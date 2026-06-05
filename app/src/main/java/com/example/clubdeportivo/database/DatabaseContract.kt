@@ -12,24 +12,31 @@ object DatabaseContract {
         )
     """
 
+    const val CREATE_TIPOS_DOCUMENTO ="""
+         CREATE TABLE tipos_documento(
+             id_tipo_documento INTEGER PRIMARY KEY AUTOINCREMENT,
+             nombre TEXT NOT NULL
+         )
+    """
+
     const val CREATE_USUARIOS = """
     CREATE TABLE usuarios(
         id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
-        dni TEXT NOT NULL UNIQUE,
+        tipo_documento INTEGER NOT NULL,
+        numero_documento TEXT NOT NULL,
         nombre TEXT NOT NULL,
         apellido TEXT NOT NULL,
         password_usuario TEXT NOT NULL,
         id_rol INTEGER NOT NULL,
         activo INTEGER NOT NULL DEFAULT 1,
-        FOREIGN KEY(id_rol)
-            REFERENCES roles(id_rol)
-    )
-    """
 
-    const val CREATE_TIPOS_DOCUMENTO ="""
-    CREATE TABLE tipos_documento(
-    id_tipo_documento INTEGER PRIMARY KEY AUTOINCREMENT,
-    nombre TEXT NOT NULL
+        FOREIGN KEY(id_rol)
+            REFERENCES roles(id_rol),
+
+        FOREIGN KEY(tipo_documento)
+            REFERENCES tipos_documento(id_tipo_documento),
+
+        UNIQUE(tipo_documento, numero_documento)
     )
     """
 
@@ -52,5 +59,5 @@ object DatabaseContract {
 
         UNIQUE(tipo_documento, numero_documento)
     )
-"""
+    """
 }

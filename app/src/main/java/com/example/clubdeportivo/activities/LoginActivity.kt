@@ -34,17 +34,17 @@ class LoginActivity : AppCompatActivity() {
 
         btnIngresar.setOnClickListener {
 
-            val dni = usuario.text.toString().trim()
+            val documento = usuario.text.toString().trim()
             val contrasenia = password.text.toString().trim()
 
 
-            if (dni.isEmpty() || contrasenia.isEmpty()) {
+            if (documento.isEmpty() || contrasenia.isEmpty()) {
                 mostrarError(mensajeErrorLogin, "Complete los campos")
                 return@setOnClickListener
             }
 
             val usuarioLogueado = usuarioDao.login(
-                dni,
+                documento,
                 contrasenia
             )
 

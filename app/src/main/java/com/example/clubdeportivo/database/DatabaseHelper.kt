@@ -15,8 +15,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 
         // Crear tablas
         db.execSQL(DatabaseContract.CREATE_ROLES)
-        db.execSQL(DatabaseContract.CREATE_USUARIOS)
         db.execSQL(DatabaseContract.CREATE_TIPOS_DOCUMENTO)
+        db.execSQL(DatabaseContract.CREATE_USUARIOS)
         db.execSQL(DatabaseContract.CREATE_CLIENTES)
 
 
@@ -29,10 +29,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         oldVersion: Int,
         newVersion: Int
     ) {
-
-        db.execSQL("DROP TABLE IF EXISTS usuarios")
         db.execSQL("DROP TABLE IF EXISTS roles")
         db.execSQL("DROP TABLE IF EXISTS tipos_documento ")
+        db.execSQL("DROP TABLE IF EXISTS usuarios")
         db.execSQL("DROP TABLE IF EXISTS clientes ")
 
         onCreate(db)
@@ -42,9 +41,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 
         insertarRoles(db)
 
-        insertarAdministrador(db)
-
         insertarTiposDocumento(db)
+
+        insertarAdministrador(db)
 
         insertarCliente(db)
     }
@@ -62,28 +61,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         """.trimIndent())
     }
 
-    private fun insertarAdministrador(db: SQLiteDatabase) {
-
-        db.execSQL("""
-        INSERT INTO usuarios(
-            dni,
-            nombre,
-            apellido,
-            password_usuario,
-            id_rol,
-            activo
-        )
-        VALUES(
-            '12345678',
-            'Administrador',
-            'Principal',
-            '123456',
-            1,
-            1
-        )
-    """.trimIndent())
-    }
-
     private fun insertarTiposDocumento(db: SQLiteDatabase) {
 
         db.execSQL("""
@@ -96,6 +73,32 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             VALUES ('Pasaporte')
         """.trimIndent())
     }
+
+    private fun insertarAdministrador(db: SQLiteDatabase) {
+
+        db.execSQL("""
+        INSERT INTO usuarios(
+            nombre,
+            apellido,
+            tipo_documento,
+            numero_documento,
+            password_usuario,
+            id_rol,
+            activo
+        )
+        VALUES(
+            'Administrador',
+            'Principal',
+            1,
+            '1234',
+            '1234',
+            1,
+            1
+        )
+    """.trimIndent())
+    }
+
+
 
     private fun insertarCliente(db: SQLiteDatabase){
 

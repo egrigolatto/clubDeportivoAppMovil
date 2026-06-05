@@ -9,11 +9,10 @@ import com.example.clubdeportivo.models.Usuario
 class UsuarioDao(
     context: Context
 ) {
-
     private val dbHelper = DatabaseHelper(context)
 
     fun login(
-        dni: String,
+        numero_documento: String,
         password: String
     ): Usuario? {
 
@@ -23,12 +22,12 @@ class UsuarioDao(
             """
             SELECT *
             FROM usuarios
-            WHERE dni = ?
+            WHERE numero_documento = ?
             AND password_usuario = ?
             AND activo = 1
             """.trimIndent(),
             arrayOf(
-                dni,
+                numero_documento,
                 password
             )
         )
@@ -41,27 +40,24 @@ class UsuarioDao(
                 idUsuario = cursor.getInt(
                     cursor.getColumnIndexOrThrow("id_usuario")
                 ),
-
-                dni = cursor.getString(
-                    cursor.getColumnIndexOrThrow("dni")
+                tipoDocumento = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("tipo_documento")
                 ),
-
+                numeroDocumento = cursor.getString(
+                    cursor.getColumnIndexOrThrow("numero_documento")
+                ),
                 nombre = cursor.getString(
                     cursor.getColumnIndexOrThrow("nombre")
                 ),
-
                 apellido = cursor.getString(
                     cursor.getColumnIndexOrThrow("apellido")
                 ),
-
                 passwordUsuario = cursor.getString(
                     cursor.getColumnIndexOrThrow("password_usuario")
                 ),
-
                 idRol = cursor.getInt(
                     cursor.getColumnIndexOrThrow("id_rol")
                 ),
-
                 activo = cursor.getInt(
                     cursor.getColumnIndexOrThrow("activo")
                 ) == 1
@@ -97,8 +93,11 @@ class UsuarioDao(
                 idUsuario = cursor.getInt(
                     cursor.getColumnIndexOrThrow("id_usuario")
                 ),
-                dni = cursor.getString(
-                    cursor.getColumnIndexOrThrow("dni")
+                tipoDocumento = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("tipo_documento")
+                ),
+                numeroDocumento = cursor.getString(
+                    cursor.getColumnIndexOrThrow("numero_documento")
                 ),
                 nombre = cursor.getString(
                     cursor.getColumnIndexOrThrow("nombre")
@@ -124,20 +123,25 @@ class UsuarioDao(
         return usuario
     }
 
-    fun existeDni(
-        dni: String
+    fun existeDocumento(
+        tipoDocumento: Int,
+        numero_documento: String
     ): Boolean {
 
         val db = dbHelper.readableDatabase
 
         val cursor = db.rawQuery(
             """
-        SELECT 1
-        FROM usuarios
-        WHERE dni = ?
-        LIMIT 1
-        """.trimIndent(),
-            arrayOf(dni)
+            SELECT 1
+            FROM usuarios
+            WHERE tipo_documento = ?
+            AND numero_documento = ?
+            LIMIT 1
+            """.trimIndent(),
+            arrayOf(
+                tipoDocumento.toString(),
+                numero_documento
+            )
         )
 
         val existe = cursor.moveToFirst()
@@ -156,7 +160,9 @@ class UsuarioDao(
 
         val values = ContentValues().apply {
 
-            put("dni", usuario.dni)
+            put("numero_documento", usuario.numeroDocumento)
+
+            put("tipo_documento", usuario.tipoDocumento)
 
             put("nombre", usuario.nombre)
 
