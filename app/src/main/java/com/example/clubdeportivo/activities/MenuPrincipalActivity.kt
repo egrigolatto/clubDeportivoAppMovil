@@ -19,11 +19,12 @@ class MenuPrincipalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_principal)
 
+        // Obtener los elementos del layout
         val btnCardRegistrarSocio = findViewById<LinearLayout>(R.id.cardRegistrarSocio)
         val btnCardRegistrarNoSocio = findViewById<LinearLayout>(R.id.cardRegistrarNoSocio)
         val btnCardPagarCuota = findViewById<LinearLayout>(R.id.cardPagarCuota)
         val btnCardListaMorosos = findViewById<LinearLayout>(R.id.cardListaMorosos)
-        val btnCardRegistrarUsuario = findViewById<LinearLayout>(R.id.cardRegistrarAdmin)
+        val btnCardRegistrarUsuario = findViewById<LinearLayout>(R.id.cardRegistrarUsuario)
         val btnSalirApp = findViewById<Button>(R.id.btnSalirApp)
 
 
@@ -31,6 +32,8 @@ class MenuPrincipalActivity : AppCompatActivity() {
         val txtRol =  findViewById<TextView>(R.id.txtRol)
 
 
+
+        // Obtener el ID del usuario de la actividad anterior
         val idUsuario = intent.getIntExtra(
             "idUsuario",
             -1
@@ -38,6 +41,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
 
         val usuarioDao = UsuarioDao(this)
 
+        // Obtener los datos del usuario
         val usuario = usuarioDao.obtenerPorId(idUsuario)
 
         if (usuario != null) {

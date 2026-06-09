@@ -326,7 +326,7 @@
 
                 <!-- Opción 05 -->
                 <LinearLayout
-                    android:id="@+id/cardRegistrarAdmin"
+                    android:id="@+id/cardRegistrarUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:baselineAligned="false"

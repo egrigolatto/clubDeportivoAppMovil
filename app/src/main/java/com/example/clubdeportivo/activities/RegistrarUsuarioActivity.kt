@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clubdeportivo.R
+import com.example.clubdeportivo.database.dao.RolDao
+import com.example.clubdeportivo.database.dao.TipoDocumentoDao
 import com.example.clubdeportivo.database.dao.UsuarioDao
 import com.example.clubdeportivo.models.Usuario
 
@@ -53,11 +55,39 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
         btnRegistrarUsuario.setOnClickListener {
 
+            val tipoDocumentoDao = TipoDocumentoDao(this)
+            val tipoDocumentoSeleccionado =
+                tipoDocumentoDao.obtenerPorNombre(
+                    tipoDocumento.text.toString()
+                )
+            if (tipoDocumentoSeleccionado == null) {
+                mostrarError(
+                    mensajeError,
+                    "Seleccione un tipo de documento válido"
+                )
+                return@setOnClickListener
+            }
+
+            val rolDao = RolDao(this)
+            val rolSeleccionado =
+                rolDao.obtenerPorNombre(
+                    tipoRol.text.toString()
+                )
+            if (rolSeleccionado == null) {
+                mostrarError(
+                    mensajeError,
+                    "Seleccione un rol válido"
+                )
+                return@setOnClickListener
+            }
+
+            val idTipoDocumento = tipoDocumentoSeleccionado.idTipoDocumento
+
+            val idRol = rolSeleccionado.idRol
+
             val nombre = txtNombre.text.toString().trim()
 
             val apellido = txtApellido.text.toString().trim()
-
-            val tipoDocumento = 1
 
             val numeroDocumento = txtNumeroDocumento.text.toString().trim()
 
@@ -65,7 +95,6 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
             val password2 = txtPassword2.text.toString()
 
-            val rol = obtenerIdRol()
 
             if (nombre.isEmpty()
                 || apellido.isEmpty()
@@ -83,7 +112,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
             val usuarioDao = UsuarioDao(this)
 
-            if (usuarioDao.existeDocumento(tipoDocumento, numeroDocumento)) {
+            if (usuarioDao.existeDocumento(idTipoDocumento, numeroDocumento)) {
                 mostrarError(
                     mensajeError,
                     "Ya existe un usuario con ese Nro. de documento"
@@ -91,13 +120,15 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+
+
             val usuario = Usuario(
-                tipoDocumento = tipoDocumento,
+                tipoDocumento = idTipoDocumento,
                 numeroDocumento = numeroDocumento,
                 nombre = nombre,
                 apellido = apellido,
                 passwordUsuario = password1,
-                idRol = rol,
+                idRol = idRol,
                 activo = true
             )
 
@@ -166,15 +197,16 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
     private fun configurarTipoDocumento() {
 
-        val opciones = listOf(
-            "DNI",
-            "Pasaporte"
-        )
+        val tipoDocumentoDao = TipoDocumentoDao(this)
+
+        val tiposDocumento = tipoDocumentoDao.obtenerTodos()
+
+        val nombres = tiposDocumento.map { it.nombre }
 
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_dropdown_item_1line,
-            opciones
+            nombres
         )
 
         tipoDocumento.setAdapter(adapter)
@@ -183,20 +215,23 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
             tipoDocumento.showDropDown()
         }
 
-        tipoDocumento.setText(opciones[0], false)
+        if (nombres.isNotEmpty()) {
+            tipoDocumento.setText(nombres[0], false)
+        }
     }
 
     private fun configurarRoles() {
 
-        val roles = listOf(
-            "Empleado",
-            "Administrador"
-        )
+        val rolDao = RolDao(this)
+
+        val roles = rolDao.obtenerTodos()
+
+        val nombres = roles.map { it.nombre }
 
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_dropdown_item_1line,
-            roles
+            nombres
         )
 
         tipoRol.setAdapter(adapter)
@@ -205,18 +240,11 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
             tipoRol.showDropDown()
         }
 
-        tipoRol.setText(roles[0], false)
-    }
-
-    private fun obtenerIdRol(): Int {
-
-        return when (
-            tipoRol.text.toString()
-        ) {
-            "Administrador" -> 1
-            else -> 2
+        if (nombres.isNotEmpty()) {
+            tipoRol.setText(nombres[0], false)
         }
     }
+
     private fun mostrarError(textView: TextView, mensaje: String) {
         textView.text = mensaje
         textView.visibility = View.VISIBLE

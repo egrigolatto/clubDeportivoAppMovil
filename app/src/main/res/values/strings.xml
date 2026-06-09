@@ -188,8 +188,8 @@
     <string name="usuario_apellido_hint">Ingrese apellido</string>
     <string name="usuario_tipo_documento">TIPO DOCUMENTO</string>
     <string name="usuario_tipo_documento_valor">DNI</string>
-    <string name="usuario_documento">DOCUMENTO</string>
-    <string name="usuario_documento_hint">Ingrese DNI</string>
+    <string name="usuario_documento">N° DOCUMENTO</string>
+    <string name="usuario_documento_hint">Ingrese Documento</string>
     <string name="usuario_contrasenia1">CONTRASEÑA</string>
     <string name="usuario_contrasenia_hint1">Ingrese contraseña</string>
     <string name="usuario_contrasenia2">REPITA LA CONTRASEÑA</string>
@@ -211,8 +211,8 @@
     <string name="no_socio_apellido_hint">Ingrese apellido</string>
     <string name="no_socio_tipo_documento">TIPO DOCUMENTO</string>
     <string name="no_socio_tipo_documento_valor">DNI</string>
-    <string name="no_socio_numero">NÚMERO</string>
-    <string name="no_socio_dni_hint">Ingrese número</string>
+    <string name="no_socio_numero">N° DOCUMENTO</string>
+    <string name="no_socio_dni_hint">Ingrese Documento</string>
     <string name="no_socio_email">EMAIL</string>
     <string name="no_socio_email_hint">Ingrese email</string>
     <string name="no_socio_telefono">TELÉFONO</string>
@@ -232,8 +232,8 @@
     <string name="socio_apellido_hint">Ingrese apellido</string>
     <string name="socio_tipo_documento">TIPO DOCUMENTO</string>
     <string name="socio_tipo_documento_valor">DNI</string>
-    <string name="socio_dni">DNI</string>
-    <string name="socio_dni_hint">Ingrese DNI</string>
+    <string name="socio_dni">N° DOCUMENTO</string>
+    <string name="socio_dni_hint">Ingrese Documento</string>
     <string name="socio_email">EMAIL</string>
     <string name="socio_email_hint">Ingrese email</string>
     <string name="socio_telefono">TELÉFONO</string>

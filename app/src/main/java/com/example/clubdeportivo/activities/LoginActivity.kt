@@ -24,14 +24,14 @@ class LoginActivity : AppCompatActivity() {
 
         val usuarioDao = UsuarioDao(this)
 
-
-
+        // Variables de la vista
         val usuario = findViewById<EditText>(R.id.usuario)
         val password = findViewById<EditText>(R.id.password)
         val mensajeErrorLogin = findViewById<TextView>(R.id.mensajeErrorLogin)
         val btnIngresar = findViewById<Button>(R.id.btnIngresar)
 
 
+        // Evento click del botón Ingresar
         btnIngresar.setOnClickListener {
 
             val documento = usuario.text.toString().trim()

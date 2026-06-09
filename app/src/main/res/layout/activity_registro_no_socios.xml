@@ -418,7 +418,20 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="44dp" />
+                    android:layout_height="15dp" />
+                <TextView
+                    android:id="@+id/mensajeError"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="0dp"
+                    android:text=""
+                    android:textColor="#DC2626"
+                    android:textSize="14sp"
+                    android:visibility="invisible" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <!-- Botón registrar -->
                 <com.google.android.material.button.MaterialButton

@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.example.clubdeportivo.R
 import com.example.clubdeportivo.database.dao.ClienteDao
+import com.example.clubdeportivo.database.dao.TipoDocumentoDao
 import com.example.clubdeportivo.models.Cliente
 
 
@@ -22,7 +23,7 @@ class RegistroSociosActivity : AppCompatActivity() {
     private lateinit var txtNombre: EditText
     private lateinit var txtApellido: EditText
     private lateinit var txtDni: EditText
-    private lateinit var tipoDoc: AutoCompleteTextView
+    private lateinit var tipoDocumento: AutoCompleteTextView
     private lateinit var txtEmail: EditText
     private lateinit var txtTelefono: EditText
     private lateinit var txtModoPago: AutoCompleteTextView
@@ -54,14 +55,26 @@ class RegistroSociosActivity : AppCompatActivity() {
 
         btnRegistrarSocio.setOnClickListener {
 
+            val tipoDocumentoDao = TipoDocumentoDao(this)
+            val tipoDocumentoSeleccionado =
+                tipoDocumentoDao.obtenerPorNombre(
+                    tipoDocumento.text.toString()
+                )
+            if (tipoDocumentoSeleccionado == null) {
+                mostrarError(
+                    mensajeError,
+                    "Seleccione un tipo de documento válido"
+                )
+                return@setOnClickListener
+            }
+
             val nombre = txtNombre.text.toString().trim()
             val apellido = txtApellido.text.toString().trim()
             val dni = txtDni.text.toString().trim()
             val email = txtEmail.text.toString().trim()
             val telefono = txtTelefono.text.toString().trim()
             val aptoFisico = chkAptoFisico.isChecked
-
-            val tipoDocumento = 1 //despues crear la funcion para traerlo de la db
+            val idTipoDocumento = tipoDocumentoSeleccionado.idTipoDocumento
 
             if (
                 nombre.isEmpty() ||
@@ -93,7 +106,7 @@ class RegistroSociosActivity : AppCompatActivity() {
 
             if (
                 clienteDao.existeDocumento(
-                    tipoDocumento,
+                    idTipoDocumento,
                     dni
                 )
             ) {
@@ -109,7 +122,7 @@ class RegistroSociosActivity : AppCompatActivity() {
             val cliente = Cliente(
                 nombre = nombre,
                 apellido = apellido,
-                tipoDocumento = tipoDocumento,
+                tipoDocumento = idTipoDocumento,
                 numeroDocumento = dni,
                 email = email,
                 telefono = telefono,
@@ -174,7 +187,7 @@ class RegistroSociosActivity : AppCompatActivity() {
         txtNombre = findViewById(R.id.nombre)
         txtApellido = findViewById(R.id.apellido)
         txtDni = findViewById(R.id.dni)
-        tipoDoc = findViewById(R.id.tipoDocumento)
+        tipoDocumento = findViewById(R.id.tipoDocumento)
         txtEmail = findViewById(R.id.email)
         txtTelefono = findViewById(R.id.telefono)
         chkAptoFisico = findViewById(R.id.aptoFisico)
@@ -185,24 +198,27 @@ class RegistroSociosActivity : AppCompatActivity() {
 
     private fun configurarTipoDocumento() {
 
-        val opciones = listOf(
-            "DNI",
-            "Pasaporte"
-        )
+        val tipoDocumentoDao = TipoDocumentoDao(this)
+
+        val tiposDocumento = tipoDocumentoDao.obtenerTodos()
+
+        val nombres = tiposDocumento.map { it.nombre }
 
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_dropdown_item_1line,
-            opciones
+            nombres
         )
 
-        tipoDoc.setAdapter(adapter)
+        tipoDocumento.setAdapter(adapter)
 
-        tipoDoc.setOnClickListener {
-            tipoDoc.showDropDown()
+        tipoDocumento.setOnClickListener {
+            tipoDocumento.showDropDown()
         }
 
-        tipoDoc.setText(opciones[0], false)
+        if (nombres.isNotEmpty()) {
+            tipoDocumento.setText(nombres[0], false)
+        }
     }
 
     private fun configurarModoPago() {
