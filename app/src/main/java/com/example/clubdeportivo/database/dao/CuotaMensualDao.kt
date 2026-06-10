@@ -7,6 +7,7 @@ import com.example.clubdeportivo.models.CuotaMensual
 import com.example.clubdeportivo.utils.Config
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class CuotaMensualDao(
@@ -109,7 +110,7 @@ class CuotaMensualDao(
             FROM cuotas_mensuales
             WHERE id_cliente = ?
             AND estado = 'pendiente'
-            ORDER BY fecha_vencimiento
+            ORDER BY periodo
             """.trimIndent(),
             arrayOf(idCliente.toString())
         )
@@ -228,6 +229,41 @@ class CuotaMensualDao(
         db.close()
 
         return cuota
+    }
+    fun pagarPendientes(
+        idCliente: Int,
+        modoPago: String
+    ): Int {
+
+        val db = dbHelper.writableDatabase
+
+        val fechaPago = SimpleDateFormat(
+            "yyyy-MM-dd",
+            Locale.getDefault()
+        ).format(Date())
+
+        val values = ContentValues().apply {
+
+            put("estado", "pagada")
+
+            put("modo_pago", modoPago)
+
+            put("fecha_pago", fechaPago)
+        }
+
+        val filasActualizadas = db.update(
+            "cuotas_mensuales",
+            values,
+            "id_cliente = ? AND estado = ?",
+            arrayOf(
+                idCliente.toString(),
+                "pendiente"
+            )
+        )
+
+        db.close()
+
+        return filasActualizadas
     }
 
 

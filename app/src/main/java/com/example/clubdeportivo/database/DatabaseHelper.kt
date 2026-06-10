@@ -54,6 +54,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         insertarCliente(db)
 
         insertarActividades(db)
+
+        insertarCuotasPrueba(db)
     }
 
     private fun insertarRoles(db: SQLiteDatabase) {
@@ -149,6 +151,59 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             ('Fútbol', 10000),
             ('Yoga', 8000),
             ('Pilates', 9000)
+    """.trimIndent())
+    }
+
+    private fun insertarCuotasPrueba(
+        db: SQLiteDatabase
+    ) {
+
+        db.execSQL("""
+    INSERT INTO cuotas_mensuales(
+        id_cliente,
+        periodo,
+        monto,
+        fecha_emision,
+        fecha_vencimiento,
+        fecha_pago,
+        modo_pago,
+        promocion,
+        estado
+    )
+    VALUES
+    (
+        1,
+        '2026-03',
+        50000,
+        '2026-03-01',
+        '2026-04-10',
+        NULL,
+        NULL,
+        NULL,
+        'pendiente'
+    ),
+    (
+        1,
+        '2026-04',
+        50000,
+        '2026-04-01',
+        '2026-05-10',
+        NULL,
+        NULL,
+        NULL,
+        'pendiente'
+    ),
+    (
+        1,
+        '2026-05',
+        50000,
+        '2026-05-01',
+        '2026-06-10',
+        NULL,
+        NULL,
+        NULL,
+        'pendiente'
+    )
     """.trimIndent())
     }
 }
