@@ -140,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.08"
-                        android:text="@string/dni_cliente"
+                        android:text="@string/documento_cliente"
                         android:textColor="#4B5563"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -157,13 +157,13 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/dniCliente"
+                    android:id="@+id/documentoCliente"
                     android:layout_width="300dp"
                     android:layout_height="52dp"
                     android:layout_gravity="center_horizontal"
                     android:autofillHints="username"
                     android:backgroundTint="#6B7280"
-                    android:hint="@string/dni_cliente_hint"
+                    android:hint="@string/documento_cliente_hint"
                     android:inputType="number"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
@@ -177,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
-                    android:text="@string/error_dni_cliente"
+                    android:text="@string/error_documento_cliente"
                     android:textColor="#DC2626"
                     android:textSize="14sp"
                     android:visibility="invisible" />

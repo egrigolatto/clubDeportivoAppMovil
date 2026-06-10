@@ -11,96 +11,138 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import com.example.clubdeportivo.R
+import com.example.clubdeportivo.database.dao.ClienteDao
+import com.example.clubdeportivo.database.dao.CuotaMensualDao
 
 class PagarCuotaActivity : AppCompatActivity() {
+
+    private lateinit var txtDocumento: EditText
+    private lateinit var mensajeError: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pagar_cuota)
 
+        inicializarVistas()
+
+        // BOTON VOLVER
         val btnVolver = findViewById<ImageView>(R.id.btnVolver)
         btnVolver.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
+        // BOTON CANCELAR
         val btnCancelar = findViewById<LinearLayout>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
-        val dni = findViewById<EditText>(R.id.dniCliente)
+        // BOTON CONFIRMAR
         val btnConfirmar = findViewById<Button>(R.id.btnConfirmar)
-        val mensajeError = findViewById<TextView>(R.id.mensajeError)
 
         btnConfirmar.setOnClickListener {
-            val dniTexto = dni.text.toString().trim()
-            if (dniTexto.isEmpty()) {
-                mostrarError(mensajeError, "Ingrese un valor")
+            val documento = txtDocumento.text.toString().trim()
+
+            if (documento.isEmpty()) {
+                mostrarError(mensajeError, "Ingrese un documento")
                 return@setOnClickListener
             }
 
-            when (dniTexto) {
+            val clienteDao = ClienteDao(this)
 
-                "1" -> {
-                    val intent = Intent(this, PagarCuotaMensualActivity::class.java)
-                    startActivity(intent)
-                }
+            val cliente = clienteDao.obtenerPorDocumento(documento)
 
-                "2" -> {
-                    val intent = Intent(this, PagarCuotaDiariaActivity::class.java)
-                    startActivity(intent)
-                }
-
-
-                "3" -> {
-                    val vista = layoutInflater.inflate(R.layout.dialog_template, null)
-
-                    val mensaje = vista.findViewById<TextView>(R.id.textDialog)
-
-                    val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
-
-                    mensaje.text = "No registra deuda"
-
-                    val dialog = AlertDialog.Builder(this)
-                        .setView(vista)
-                        .create()
-
-                    dialog.show()
-
-                    btnAceptar.setOnClickListener {
-
-                        dialog.dismiss()
-
-                    }
-                }
-
-
-                else -> {
-                    val vista = layoutInflater.inflate(R.layout.dialog_template, null)
-
-                    val mensaje = vista.findViewById<TextView>(R.id.textDialog)
-
-                    val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
-
-                    mensaje.text = "El cliente no se encuentra registrado"
-
-                    val dialog = AlertDialog.Builder(this)
-                        .setView(vista)
-                        .create()
-
-                    dialog.show()
-
-                    btnAceptar.setOnClickListener {
-
-                        dialog.dismiss()
-
-                    }
-                }
+            if (cliente == null) {
+                mostrarDialogo("El cliente no se encuentra registrado", 2)
+                return@setOnClickListener
             }
+
+            val cuotaMensualDao = CuotaMensualDao(this)
+
+
+            if (cliente.esSocio) {
+
+                val tienePendiente =
+                    cuotaMensualDao.obtenerPendientes(
+                        cliente.idCliente
+                    )
+
+                if (tienePendiente.isEmpty()) {
+                    mostrarDialogo(
+                        "No registra deuda",
+                        1
+                    )
+                    return@setOnClickListener
+                }
+
+                val intent = Intent(
+                    this,
+                    PagarCuotaMensualActivity::class.java
+                )
+
+                intent.putExtra(
+                    "idCliente",
+                    cliente.idCliente
+                )
+
+                startActivity(intent)
+
+                return@setOnClickListener
+            } else {
+                val intent = Intent(this, PagarCuotaDiariaActivity::class.java)
+                intent.putExtra(
+                    "idCliente",
+                    cliente.idCliente
+                )
+                startActivity(intent)
+            }
+
         }
 
 
+    }
+
+    private fun inicializarVistas() {
+        txtDocumento = findViewById(R.id.documentoCliente)
+        mensajeError = findViewById(R.id.mensajeError)
+    }
+
+    private fun mostrarDialogo(
+        mensajeTexto: String,
+        tipoDialogo: Int
+    ) {
+
+        val vista = if (tipoDialogo == 1) {
+            layoutInflater.inflate(
+                R.layout.dialog_template,
+                null
+            )
+        } else {
+            layoutInflater.inflate(
+                R.layout.dialog_error,
+                null
+            )
+        }
+
+        val mensaje = vista.findViewById<TextView>(
+            R.id.textDialog
+        )
+
+        val btnAceptar = vista.findViewById<Button>(
+            R.id.btnAceptar
+        )
+
+        mensaje.text = mensajeTexto
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(vista)
+            .create()
+
+        dialog.show()
+
+        btnAceptar.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
     private fun mostrarError(textView: TextView, mensaje: String) {

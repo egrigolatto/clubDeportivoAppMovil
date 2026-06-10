@@ -21,7 +21,7 @@ class RegistroNoSociosActivity : AppCompatActivity() {
 
     private lateinit var txtNombre: EditText
     private lateinit var txtApellido: EditText
-    private lateinit var txtDni: EditText
+    private lateinit var txtDocumento: EditText
     private lateinit var tipoDocumento: AutoCompleteTextView
     private lateinit var txtEmail: EditText
     private lateinit var txtTelefono: EditText
@@ -65,7 +65,7 @@ class RegistroNoSociosActivity : AppCompatActivity() {
 
             val nombre = txtNombre.text.toString().trim()
             val apellido = txtApellido.text.toString().trim()
-            val dni = txtDni.text.toString().trim()
+            val documento = txtDocumento.text.toString().trim()
             val email = txtEmail.text.toString().trim()
             val telefono = txtTelefono.text.toString().trim()
             val aptoFisico = chkAptoFisico.isChecked
@@ -74,7 +74,7 @@ class RegistroNoSociosActivity : AppCompatActivity() {
             if (
                 nombre.isEmpty() ||
                 apellido.isEmpty() ||
-                dni.isEmpty() ||
+                documento.isEmpty() ||
                 email.isEmpty()  ||
                 telefono.isEmpty()
             ) {
@@ -102,7 +102,7 @@ class RegistroNoSociosActivity : AppCompatActivity() {
             if (
                 clienteDao.existeDocumento(
                     idTipoDocumento,
-                    dni
+                    documento
                 )
             ) {
 
@@ -118,7 +118,7 @@ class RegistroNoSociosActivity : AppCompatActivity() {
                 nombre = nombre,
                 apellido = apellido,
                 tipoDocumento = idTipoDocumento,
-                numeroDocumento = dni,
+                numeroDocumento = documento,
                 email = email,
                 telefono = telefono,
                 esSocio = false,
@@ -139,7 +139,7 @@ class RegistroNoSociosActivity : AppCompatActivity() {
                        No Socio registrado correctamente
                        Nombre: $nombre
                        Apellido: $apellido
-                       DNI: $dni
+                       DNI: $documento
                        """.trimIndent()
 
                 val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
@@ -156,7 +156,7 @@ class RegistroNoSociosActivity : AppCompatActivity() {
 
                     txtNombre.text.clear()
                     txtApellido.text.clear()
-                    txtDni.text.clear()
+                    txtDocumento.text.clear()
                     txtEmail.text.clear()
                     txtTelefono.text.clear()
 
@@ -180,7 +180,7 @@ class RegistroNoSociosActivity : AppCompatActivity() {
 
         txtNombre = findViewById(R.id.nombre)
         txtApellido = findViewById(R.id.apellido)
-        txtDni = findViewById(R.id.dni)
+        txtDocumento = findViewById(R.id.documento)
         tipoDocumento = findViewById(R.id.tipoDocumento)
         txtEmail = findViewById(R.id.email)
         txtTelefono = findViewById(R.id.telefono)

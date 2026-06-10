@@ -18,6 +18,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         db.execSQL(DatabaseContract.CREATE_TIPOS_DOCUMENTO)
         db.execSQL(DatabaseContract.CREATE_USUARIOS)
         db.execSQL(DatabaseContract.CREATE_CLIENTES)
+        db.execSQL(DatabaseContract.CREATE_ACTIVIDADES)
+        db.execSQL(DatabaseContract.CREATE_CUOTAS_MENSUALES)
+        db.execSQL(DatabaseContract.CREATE_CUOTAS_DIARIAS)
 
 
         // Insertar datos iniciales
@@ -33,6 +36,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         db.execSQL("DROP TABLE IF EXISTS tipos_documento ")
         db.execSQL("DROP TABLE IF EXISTS usuarios")
         db.execSQL("DROP TABLE IF EXISTS clientes ")
+        db.execSQL("DROP TABLE IF EXISTS actividades ")
+        db.execSQL("DROP TABLE IF EXISTS cuotas_mensuales ")
+        db.execSQL("DROP TABLE IF EXISTS cuotas_diarias ")
 
         onCreate(db)
     }
@@ -46,6 +52,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         insertarAdministrador(db)
 
         insertarCliente(db)
+
+        insertarActividades(db)
     }
 
     private fun insertarRoles(db: SQLiteDatabase) {
@@ -125,6 +133,22 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             1,
             'activo'
         )
+    """.trimIndent())
+    }
+
+    private fun insertarActividades(db: SQLiteDatabase) {
+
+        db.execSQL("""
+        INSERT INTO actividades(
+            nombre,
+            monto
+        )
+        VALUES
+            ('Natación', 15000),
+            ('Musculación', 12000),
+            ('Fútbol', 10000),
+            ('Yoga', 8000),
+            ('Pilates', 9000)
     """.trimIndent())
     }
 }

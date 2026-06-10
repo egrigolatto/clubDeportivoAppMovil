@@ -1,9 +1,9 @@
 package com.example.clubdeportivo.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
-import android.content.Intent
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -14,15 +14,17 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.example.clubdeportivo.R
 import com.example.clubdeportivo.database.dao.ClienteDao
+import com.example.clubdeportivo.database.dao.CuotaMensualDao
 import com.example.clubdeportivo.database.dao.TipoDocumentoDao
 import com.example.clubdeportivo.models.Cliente
+import com.example.clubdeportivo.utils.Config
 
 
 class RegistroSociosActivity : AppCompatActivity() {
 
     private lateinit var txtNombre: EditText
     private lateinit var txtApellido: EditText
-    private lateinit var txtDni: EditText
+    private lateinit var txtDocumento: EditText
     private lateinit var tipoDocumento: AutoCompleteTextView
     private lateinit var txtEmail: EditText
     private lateinit var txtTelefono: EditText
@@ -39,6 +41,8 @@ class RegistroSociosActivity : AppCompatActivity() {
         inicializarVistas()
         configurarTipoDocumento()
         configurarModoPago()
+
+        txtMontoPagar.text = "$ ${Config.MONTO_CUOTA_MENSUAL}"
 
         // BOTON VOLVER
         val btnVolver = findViewById<ImageView>(R.id.btnVolver)
@@ -70,16 +74,18 @@ class RegistroSociosActivity : AppCompatActivity() {
 
             val nombre = txtNombre.text.toString().trim()
             val apellido = txtApellido.text.toString().trim()
-            val dni = txtDni.text.toString().trim()
+            val documento = txtDocumento.text.toString().trim()
             val email = txtEmail.text.toString().trim()
             val telefono = txtTelefono.text.toString().trim()
             val aptoFisico = chkAptoFisico.isChecked
             val idTipoDocumento = tipoDocumentoSeleccionado.idTipoDocumento
 
+
+
             if (
                 nombre.isEmpty() ||
                 apellido.isEmpty() ||
-                dni.isEmpty() ||
+                documento.isEmpty() ||
                 email.isEmpty()  ||
                 telefono.isEmpty()
             ) {
@@ -107,7 +113,7 @@ class RegistroSociosActivity : AppCompatActivity() {
             if (
                 clienteDao.existeDocumento(
                     idTipoDocumento,
-                    dni
+                    documento
                 )
             ) {
 
@@ -123,7 +129,7 @@ class RegistroSociosActivity : AppCompatActivity() {
                 nombre = nombre,
                 apellido = apellido,
                 tipoDocumento = idTipoDocumento,
-                numeroDocumento = dni,
+                numeroDocumento = documento,
                 email = email,
                 telefono = telefono,
                 esSocio = true,
@@ -135,6 +141,23 @@ class RegistroSociosActivity : AppCompatActivity() {
 
             if (resultado > 0) {
 
+                val idCliente = resultado.toInt()
+
+                val cuotaDao = CuotaMensualDao(this)
+
+                val cuota =cuotaDao.crearPrimeraCuota(
+                    idCliente,
+                    txtModoPago.text.toString()
+                )
+
+                if (cuota == null) {
+                    mostrarError(
+                        mensajeError,
+                        "Error al crear la cuota mensual"
+                    )
+                    return@setOnClickListener
+                }
+
                 val vista = layoutInflater.inflate(R.layout.dialog_registro, null)
 
                 val txtMensajeRegistro = vista.findViewById<TextView>(R.id.txtMensajeRegistro)
@@ -144,7 +167,7 @@ class RegistroSociosActivity : AppCompatActivity() {
                        Socio registrado correctamente
                        Nombre: $nombre
                        Apellido: $apellido
-                       DNI: $dni
+                       DNI: $documento
                        """.trimIndent()
 
                 val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
@@ -159,15 +182,19 @@ class RegistroSociosActivity : AppCompatActivity() {
 
                     dialog.dismiss()
 
-                    txtNombre.text.clear()
-                    txtApellido.text.clear()
-                    txtDni.text.clear()
-                    txtEmail.text.clear()
-                    txtTelefono.text.clear()
+                    val intent = Intent(
+                        this,
+                        CarnetDigitalActivity::class.java
+                    )
 
-                    chkAptoFisico.isChecked = false
+                    intent.putExtra(
+                        "idCliente",
+                        idCliente
+                    )
 
+                    startActivity(intent)
 
+                    finish()
                 }
 
             } else {
@@ -186,7 +213,7 @@ class RegistroSociosActivity : AppCompatActivity() {
 
         txtNombre = findViewById(R.id.nombre)
         txtApellido = findViewById(R.id.apellido)
-        txtDni = findViewById(R.id.dni)
+        txtDocumento = findViewById(R.id.documento)
         tipoDocumento = findViewById(R.id.tipoDocumento)
         txtEmail = findViewById(R.id.email)
         txtTelefono = findViewById(R.id.telefono)

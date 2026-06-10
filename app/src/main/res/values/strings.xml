@@ -28,10 +28,10 @@
     <string name="nombre_socio">JUAN GOMEZ</string>
     <string name="codigo_qr">Código QR</string>
     <string name="foto_socio">Foto del socio</string>
-    <string name="fecha_de_alta">FECHA DEL ALTA</string>
-    <string name="fecha_alta_valor">07/11/25</string>
-    <string name="estado">ESTADO</string>
-    <string name="valido_hasta">VÁLIDO HASTA 2026</string>
+    <string name="fecha_de_alta">PERIODO</string>
+    <string name="fecha_alta_valor">11/25</string>
+    <string name="estado">VÁLiDO HASTA</string>
+    <string name="valido_hasta">07/12/25</string>
     <string name="mensaje_carnet">Presenta este carnet para acceder a las\ninstalaciones del club.</string>
     <string name="compartir">COMPARTIR</string>
 
@@ -90,11 +90,11 @@
     <string name="pagar_cuota_titulo_pantalla">Pagar Cuota</string>
     <string name="pagar_cuota_descripcion">Ingrese los datos para procesar el pago administrativo.</string>
     <string name="informacion_cliente">INFORMACIÓN DEL CLIENTE</string>
-    <string name="dni_cliente">DNI DEL CLIENTE</string>
-    <string name="dni_cliente_hint">Ingrese DNI</string>
-    <string name="error_dni_cliente">Debe ingresar un DNI válido</string>
+    <string name="documento_cliente">DOCUMENTO DEL CLIENTE</string>
+    <string name="documento_cliente_hint">Ingrese Documento</string>
+    <string name="error_documento_cliente">Debe ingresar un n° de documento válido</string>
     <string name="validacion_identidad">Validación de Identidad</string>
-    <string name="validacion_dni_mensaje">Asegúrese de que el DNI coincida exactamente con la ficha del cliente en el sistema central.</string>
+    <string name="validacion_dni_mensaje">Asegúrese de que el N° Documento coincida exactamente con la ficha del cliente en el sistema central.</string>
 
     <!-- ========================= -->
     <!-- Pagar Cuota Diaria -->
@@ -243,7 +243,7 @@
     <string name="socio_modo_pago">MODO DE PAGO</string>
     <string name="socio_modo_pago_valor">Efectivo</string>
     <string name="socio_total_pagar">TOTAL A PAGAR</string>
-    <string name="socio_monto_pagar">$ 20.000</string>
+    <string name="socio_monto_pagar">$ 50.000</string>
     <string name="socio_registrar">REGISTRAR</string>
 
     <!-- ========================= -->
