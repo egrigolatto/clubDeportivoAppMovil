@@ -77,7 +77,6 @@ class PagarCuotaMensualActivity : AppCompatActivity() {
 
                 txtMensaje.text = "Pago realizado correctamente"
 
-
                 val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
 
                 val dialog = AlertDialog.Builder(this)

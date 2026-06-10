@@ -2,6 +2,7 @@ package com.example.clubdeportivo.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -10,56 +11,200 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.clubdeportivo.R
+import com.example.clubdeportivo.adapters.ActividadAdapter
+import com.example.clubdeportivo.database.dao.ActividadDao
+import com.example.clubdeportivo.database.dao.ClienteDao
+import com.example.clubdeportivo.database.dao.CuotaDiariaDao
+import com.example.clubdeportivo.ui.model.ActividadUi
 
 class PagarCuotaDiariaActivity : AppCompatActivity() {
+
+    private lateinit var txtNombreApellido: TextView
+    private lateinit var txtModoPago: AutoCompleteTextView
+    private lateinit var txtMontoPagar: TextView
+    private lateinit var rvActividades: RecyclerView
+    private lateinit var mensajeError: TextView
+    private lateinit var listaUi: MutableList<ActividadUi>
+
+    private var idCliente = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pagar_cuota_diaria)
 
+        inicializarVistas()
+        configurarModoPago()
+        cargarActividades()
+
+        idCliente = intent.getIntExtra(
+            "idCliente",
+            -1
+        )
+
+        if (idCliente != -1) {
+            cargarDatos()
+        }
+
+        // BOTON VOLVER
         val btnVolver = findViewById<ImageView>(R.id.btnVolver)
         btnVolver.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
+        // BOTON CANCELAR
         val btnCancelar = findViewById<LinearLayout>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
+        // BOTON PAGAR CUOTA
         val btnPagarCuota = findViewById<Button>(R.id.btnPagarCuota)
         btnPagarCuota.setOnClickListener {
 
-            val vista = layoutInflater.inflate(R.layout.dialog_template, null)
+            val modoPago = txtModoPago.text.toString()
 
-            val mensaje = vista.findViewById<TextView>(R.id.textDialog)
+            val seleccionadas = listaUi.filter { it.seleccionada }
 
-            val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
-
-            mensaje.text = "Pago exitoso"
-
-            val dialog = AlertDialog.Builder(this)
-                .setView(vista)
-                .create()
-
-            dialog.show()
-
-            btnAceptar.setOnClickListener {
-
-                dialog.dismiss()
-
-                val intent = Intent(this, MenuPrincipalActivity::class.java)
-                startActivity(intent)
-
-                finish()
+            if (seleccionadas.isEmpty()) {
+                mostrarError(mensajeError, "Seleccione al menos una actividad")
+                return@setOnClickListener
             }
+
+            val cuotaDao = CuotaDiariaDao(this)
+
+            var exitos = 0
+            var duplicadas = 0
+
+            seleccionadas.forEach { actividad ->
+
+                val resultado = cuotaDao.crearCuotaDiaria(
+                    idCliente = idCliente,
+                    idActividad = actividad.idActividad,
+                    modoPago = modoPago
+                )
+
+                when {
+                    resultado > 0 -> exitos++
+                    resultado == -1L -> duplicadas++
+                }
+            }
+
+            if (exitos > 0) {
+
+                val vista = layoutInflater.inflate(R.layout.dialog_template, null)
+
+                val mensaje = vista.findViewById<TextView>(R.id.textDialog)
+                val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
+
+                mensaje.text = "Pago realizado correctamente"
+
+                val dialog = AlertDialog.Builder(this)
+                    .setView(vista)
+                    .create()
+
+                dialog.show()
+
+                btnAceptar.setOnClickListener {
+                    dialog.dismiss()
+                    finish()
+                }
+
+            } else {
+
+                mostrarError(
+                    mensajeError,
+                    "No se pudo registrar el pago"
+                )
+            }
+
+
+            if (duplicadas > 0) {
+                println("Actividades ya pagadas hoy: $duplicadas")
+            }
+
+
         }
 
-        val modoPago = findViewById<AutoCompleteTextView>(R.id.modopago)
-        val modos = listOf("EFECTIVO", "TARJETA")
-        val adapterPag = ArrayAdapter(this, android.R.layout.simple_list_item_1, modos)
-        modoPago.setAdapter(adapterPag)
+    }
+
+    private fun inicializarVistas() {
+        txtNombreApellido = findViewById(R.id.nombreSocio)
+        txtModoPago = findViewById(R.id.modo_pago)
+        txtMontoPagar = findViewById(R.id.txtTotalPagar)
+        mensajeError = findViewById(R.id.mensajeError)
+        rvActividades = findViewById(R.id.rvActividades)
+    }
+
+    private fun configurarModoPago() {
+
+        val opciones = listOf(
+            "EFECTIVO",
+            "TARJETA"
+        )
+
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            opciones
+        )
+
+        txtModoPago.setAdapter(adapter)
+
+        txtModoPago.setOnClickListener {
+            txtModoPago.showDropDown()
+        }
+
+        txtModoPago.setText(opciones[0], false)
+    }
+
+    private fun cargarActividades() {
+
+        val actividadDao = ActividadDao(this)
+
+        val actividadesDB = actividadDao.obtenerTodas()
+
+        listaUi = actividadesDB.map {
+            ActividadUi(
+                idActividad = it.idActividad,
+                nombre = it.nombre,
+                monto = it.monto
+            )
+        }.toMutableList()
+
+        val adapter = ActividadAdapter(listaUi) {
+
+            val total = listaUi
+                .filter { it.seleccionada }
+                .sumOf { it.monto }
+
+            txtMontoPagar.text = "$ $total"
+        }
+
+        rvActividades.layoutManager = LinearLayoutManager(this)
+
+        rvActividades.adapter = adapter
+    }
+
+    private fun cargarDatos() {
+
+        val clienteDao = ClienteDao(this)
+
+        val cliente = clienteDao.obtenerPorId(idCliente)
+
+        if (cliente != null) {
+            txtNombreApellido.text = "${cliente.nombre} ${cliente.apellido}"
+        }
+    }
+
+    private fun mostrarError(textView: TextView, mensaje: String) {
+        textView.text = mensaje
+        textView.visibility = View.VISIBLE
+
+        textView.postDelayed({
+            textView.visibility = View.INVISIBLE
+        }, 3000)
     }
 }

@@ -108,6 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="12dp" />
 
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -116,275 +117,21 @@
                     android:textColor="#4B5563"
                     android:textSize="12sp"
                     android:textStyle="bold" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvActividades"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="4dp" />
 
-                <!-- Natación -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="56dp"
-                    android:baselineAligned="false"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/actividad_natacion"
-                            android:textColor="#111111"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/acceso_diario"
-                            android:textColor="#4B5563"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="92dp"
-                        android:gravity="end"
-                        android:text="@string/precio_natacion"
-                        android:textColor="#0A66C2"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <CheckBox
-                        android:id="@+id/checkNatacion"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:minWidth="56dp"
-                        android:minHeight="56dp"
-                        android:button="@drawable/selector_checkbox_redondeado"
-                        android:contentDescription="@string/seleccionar_natacion" />
-
-                </LinearLayout>
-
-                <!-- Musculación -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="56dp"
-                    android:baselineAligned="false"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/actividad_musculacion"
-                            android:textColor="#111111"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/acceso_diario"
-                            android:textColor="#4B5563"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="92dp"
-                        android:gravity="end"
-                        android:text="@string/precio_musculacion"
-                        android:textColor="#0A66C2"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <CheckBox
-                        android:id="@+id/checkMusculacion"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:minWidth="56dp"
-                        android:minHeight="56dp"
-                        android:button="@drawable/selector_checkbox_redondeado"
-                        android:contentDescription="@string/seleccionar_musculacion" />
-
-                </LinearLayout>
-
-                <!-- Yoga -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="56dp"
-                    android:baselineAligned="false"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/actividad_yoga"
-                            android:textColor="#111111"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/acceso_diario"
-                            android:textColor="#4B5563"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="92dp"
-                        android:gravity="end"
-                        android:text="@string/precio_yoga"
-                        android:textColor="#0A66C2"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <CheckBox
-                        android:id="@+id/checkYoga"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:minWidth="56dp"
-                        android:minHeight="56dp"
-                        android:button="@drawable/selector_checkbox_redondeado"
-                        android:contentDescription="@string/seleccionar_yoga" />
-
-                </LinearLayout>
-
-                <!-- Fútbol -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="56dp"
-                    android:baselineAligned="false"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/actividad_futbol"
-                            android:textColor="#111111"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/acceso_diario"
-                            android:textColor="#4B5563"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="92dp"
-                        android:gravity="end"
-                        android:text="@string/precio_futbol"
-                        android:textColor="#0A66C2"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <CheckBox
-                        android:id="@+id/checkFutbol"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:minWidth="56dp"
-                        android:minHeight="56dp"
-                        android:button="@drawable/selector_checkbox_redondeado"
-                        android:contentDescription="@string/seleccionar_futbol" />
-
-                </LinearLayout>
-
-                <!-- Pilates -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="56dp"
-                    android:baselineAligned="false"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/actividad_pilates"
-                            android:textColor="#111111"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/acceso_diario"
-                            android:textColor="#4B5563"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="92dp"
-                        android:gravity="end"
-                        android:text="@string/precio_pilates"
-                        android:textColor="#0A66C2"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <CheckBox
-                        android:id="@+id/checkPilates"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:minWidth="56dp"
-                        android:minHeight="56dp"
-                        android:button="@drawable/selector_checkbox_redondeado"
-                        android:contentDescription="@string/seleccionar_pilates" />
-
-                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
@@ -401,7 +148,7 @@
                     android:textStyle="bold" />
 
                 <AutoCompleteTextView
-                    android:id="@+id/modopago"
+                    android:id="@+id/modo_pago"
                     android:layout_width="352dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
@@ -434,6 +181,8 @@
                     app:strokeColor="#E5E7EB"
                     app:strokeWidth="1dp">
 
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -461,12 +210,32 @@
 
                     </LinearLayout>
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp" />
+
+
+
+
                 </com.google.android.material.card.MaterialCardView>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="12dp" />
+                <TextView
+                    android:id="@+id/mensajeError"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="0dp"
+                    android:text=""
+                    android:textColor="#DC2626"
+                    android:textSize="14sp"
+                    android:visibility="invisible" />
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
                 <!-- Botón confirmar -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnPagarCuota"

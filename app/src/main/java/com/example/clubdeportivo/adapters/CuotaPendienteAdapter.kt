@@ -51,14 +51,11 @@ class CuotaPendienteAdapter(
 
         val cuota = cuotas[position]
 
-        holder.txtPeriodo.text =
-            cuota.periodo
+        holder.txtPeriodo.text =  cuota.periodo
 
-        holder.txtFechaVencimiento.text =
-            cuota.fechaVencimiento
+        holder.txtFechaVencimiento.text =  cuota.fechaVencimiento
 
-        holder.txtMonto.text =
-            "$ ${Config.MONTO_CUOTA_MENSUAL}"
+        holder.txtMonto.text =  "$ ${Config.MONTO_CUOTA_MENSUAL}"
     }
 
     override fun getItemCount(): Int {

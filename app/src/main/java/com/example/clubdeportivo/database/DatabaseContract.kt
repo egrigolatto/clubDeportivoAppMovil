@@ -3,7 +3,7 @@ package com.example.clubdeportivo.database
 object DatabaseContract {
 
     const val DATABASE_NAME = "club.db"
-    const val DATABASE_VERSION = 5
+    const val DATABASE_VERSION = 7
 
     const val CREATE_ROLES = """
         CREATE TABLE roles(

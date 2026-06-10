@@ -41,10 +41,14 @@ class PagarCuotaActivity : AppCompatActivity() {
         val btnConfirmar = findViewById<Button>(R.id.btnConfirmar)
 
         btnConfirmar.setOnClickListener {
+
             val documento = txtDocumento.text.toString().trim()
 
             if (documento.isEmpty()) {
-                mostrarError(mensajeError, "Ingrese un documento")
+                mostrarError(
+                    mensajeError,
+                    "Ingrese un documento"
+                )
                 return@setOnClickListener
             }
 
@@ -53,25 +57,33 @@ class PagarCuotaActivity : AppCompatActivity() {
             val cliente = clienteDao.obtenerPorDocumento(documento)
 
             if (cliente == null) {
-                mostrarDialogo("El cliente no se encuentra registrado", 2)
+                mostrarDialogo(
+                    "El cliente no se encuentra registrado",
+                    2
+                )
                 return@setOnClickListener
             }
 
             val cuotaMensualDao = CuotaMensualDao(this)
 
-
             if (cliente.esSocio) {
+                // Genera automáticamente las cuotas faltantes
+                cuotaMensualDao.actualizarCuotasPendientes(
+                    cliente.idCliente
+                )
 
-                val tienePendiente =
+                val cuotasPendientes =
                     cuotaMensualDao.obtenerPendientes(
                         cliente.idCliente
                     )
 
-                if (tienePendiente.isEmpty()) {
+                if (cuotasPendientes.isEmpty()) {
+
                     mostrarDialogo(
                         "No registra deuda",
                         1
                     )
+
                     return@setOnClickListener
                 }
 
@@ -87,16 +99,20 @@ class PagarCuotaActivity : AppCompatActivity() {
 
                 startActivity(intent)
 
-                return@setOnClickListener
             } else {
-                val intent = Intent(this, PagarCuotaDiariaActivity::class.java)
+
+                val intent = Intent(
+                    this,
+                    PagarCuotaDiariaActivity::class.java
+                )
+
                 intent.putExtra(
                     "idCliente",
                     cliente.idCliente
                 )
+
                 startActivity(intent)
             }
-
         }
 
 

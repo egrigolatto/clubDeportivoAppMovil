@@ -181,7 +181,7 @@ class CuotaMensualDao(
         FROM cuotas_mensuales
         WHERE id_cliente = ?
         AND estado = 'pagada'
-        ORDER BY fecha_vencimiento DESC
+        ORDER BY periodo DESC
         LIMIT 1
         """.trimIndent(),
             arrayOf(idCliente.toString())
@@ -264,6 +264,196 @@ class CuotaMensualDao(
         db.close()
 
         return filasActualizadas
+    }
+
+    fun obtenerUltimaCuota(
+        idCliente: Int
+    ): CuotaMensual? {
+
+        val db = dbHelper.readableDatabase
+
+        val cursor = db.rawQuery(
+            """
+        SELECT *
+        FROM cuotas_mensuales
+        WHERE id_cliente = ?
+        ORDER BY periodo DESC
+        LIMIT 1
+        """.trimIndent(),
+            arrayOf(idCliente.toString())
+        )
+
+        var cuota: CuotaMensual? = null
+
+        if (cursor.moveToFirst()) {
+
+            cuota = CuotaMensual(
+                idCuota = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("id_cuota")
+                ),
+                idCliente = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("id_cliente")
+                ),
+                periodo = cursor.getString(
+                    cursor.getColumnIndexOrThrow("periodo")
+                ),
+                monto = cursor.getDouble(
+                    cursor.getColumnIndexOrThrow("monto")
+                ),
+                fechaEmision = cursor.getString(
+                    cursor.getColumnIndexOrThrow("fecha_emision")
+                ),
+                fechaVencimiento = cursor.getString(
+                    cursor.getColumnIndexOrThrow("fecha_vencimiento")
+                ),
+                fechaPago = cursor.getString(
+                    cursor.getColumnIndexOrThrow("fecha_pago")
+                ),
+                modoPago = cursor.getString(
+                    cursor.getColumnIndexOrThrow("modo_pago")
+                ),
+                promocion = cursor.getString(
+                    cursor.getColumnIndexOrThrow("promocion")
+                ),
+                estado = cursor.getString(
+                    cursor.getColumnIndexOrThrow("estado")
+                )
+            )
+        }
+
+        cursor.close()
+        db.close()
+
+        return cuota
+    }
+
+    private fun crearCuotaPendiente(
+        idCliente: Int,
+        periodo: String,
+        fechaEmision: String,
+        fechaVencimiento: String
+    ) {
+
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply {
+
+            put("id_cliente", idCliente)
+
+            put("periodo", periodo)
+
+            put(
+                "monto",
+                Config.MONTO_CUOTA_MENSUAL
+            )
+
+            put(
+                "fecha_emision",
+                fechaEmision
+            )
+
+            put(
+                "fecha_vencimiento",
+                fechaVencimiento
+            )
+
+            put(
+                "estado",
+                "pendiente"
+            )
+        }
+
+        db.insert(
+            "cuotas_mensuales",
+            null,
+            values
+        )
+
+        db.close()
+    }
+
+    fun actualizarCuotasPendientes(
+        idCliente: Int
+    ) {
+
+        val formato = SimpleDateFormat(
+            "yyyy-MM-dd",
+            Locale.getDefault()
+        )
+
+        val hoy = Date()
+
+        var ultimaCuota =
+            obtenerUltimaCuota(idCliente)
+
+        while (
+            ultimaCuota != null &&
+            formato.parse(
+                ultimaCuota.fechaVencimiento
+            )!!.before(hoy)
+        ) {
+
+            val calendario =
+                Calendar.getInstance()
+
+            calendario.time =
+                formato.parse(
+                    ultimaCuota.fechaVencimiento
+                )!!
+
+            val fechaEmision =
+                ultimaCuota.fechaVencimiento
+
+            calendario.add(
+                Calendar.MONTH,
+                1
+            )
+
+            val fechaVencimiento =
+                formato.format(
+                    calendario.time
+                )
+
+            val partes =
+                ultimaCuota.periodo.split("-")
+
+            val anio =
+                partes[0].toInt()
+
+            val mes =
+                partes[1].toInt()
+
+            val siguiente =
+                Calendar.getInstance()
+
+            siguiente.set(
+                anio,
+                mes - 1,
+                1
+            )
+
+            siguiente.add(
+                Calendar.MONTH,
+                1
+            )
+
+            val nuevoPeriodo =
+                String.format(
+                    "%04d-%02d",
+                    siguiente.get(Calendar.YEAR),
+                    siguiente.get(Calendar.MONTH) + 1
+                )
+
+            crearCuotaPendiente(
+                idCliente,
+                nuevoPeriodo,
+                fechaEmision,
+                fechaVencimiento
+            )
+
+            ultimaCuota =
+                obtenerUltimaCuota(idCliente)
+        }
     }
 
 
