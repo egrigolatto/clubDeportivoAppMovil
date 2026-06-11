@@ -10,6 +10,14 @@ class ClienteDao(
 ) {
     private val dbHelper = DatabaseHelper(context)
 
+    /**
+     * Inserta un nuevo cliente en la base de datos.
+     *
+     * @param cliente Objeto Cliente con los datos a registrar.
+     *
+     * @return ID de la fila insertada.
+     *         Retorna -1 si ocurre un error durante la inserción.
+     */
     fun insertar(
         cliente: Cliente
     ): Long {
@@ -75,6 +83,18 @@ class ClienteDao(
         return resultado
     }
 
+    /**
+     * Verifica si ya existe un cliente con el tipo y número
+     * de documento indicados.
+     *
+     * Se utiliza para evitar registros duplicados.
+     *
+     * @param tipoDocumento ID del tipo de documento.
+     * @param numeroDocumento Número de documento a verificar.
+     *
+     * @return true si el documento ya existe.
+     *         false si no existe.
+     */
     fun existeDocumento(
         tipoDocumento: Int,
         numeroDocumento: String
@@ -104,6 +124,14 @@ class ClienteDao(
         return existe
     }
 
+    /**
+     * Obtiene un cliente a partir de su número de documento.
+     *
+     * @param numeroDocumento Número de documento a buscar.
+     *
+     * @return Objeto Cliente si existe.
+     *         null si no se encuentra ningún registro.
+     */
     fun obtenerPorDocumento(
         numeroDocumento: String
     ): Cliente? {
@@ -165,6 +193,14 @@ class ClienteDao(
         return cliente
     }
 
+    /**
+     * Obtiene un cliente a partir de su ID.
+     *
+     * @param idCliente Identificador único del cliente.
+     *
+     * @return Objeto Cliente si existe.
+     *         null si no se encuentra el cliente.
+     */
     fun obtenerPorId(
         idCliente: Int
     ): Cliente? {

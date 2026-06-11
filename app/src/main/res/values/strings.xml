@@ -47,7 +47,7 @@
     <string name="moroso_elena">Martínez, Elena</string>
     <string name="vencido">VENCIDO</string>
     <string name="sin_registros">Sin registros pendientes</string>
-    <string name="no_hay_mas_registros">No hay más registros pendientes\nde pago en el ciclo actual.</string>
+    <string name="no_hay_mas_registros">No hay registros pendientes\nde pago en el ciclo actual.</string>
     <string name="volver_mayuscula">VOLVER</string>
 
     <!-- ========================= -->

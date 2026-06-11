@@ -26,6 +26,10 @@ class PagarCuotaMensualActivity : AppCompatActivity() {
     private lateinit var txtMontoPagar: TextView
     private lateinit var rvCuotas: RecyclerView
     private lateinit var mensajeError: TextView
+    private lateinit var btnVolver: ImageView
+    private lateinit var btnCancelar: LinearLayout
+    private lateinit var btnPagarCuota: Button
+
 
     private var idCliente = -1
 
@@ -48,80 +52,32 @@ class PagarCuotaMensualActivity : AppCompatActivity() {
 
 
         // BOTON VOLVER
-        val btnVolver = findViewById<ImageView>(R.id.btnVolver)
         btnVolver.setOnClickListener {
             finish()
         }
 
         // BOTON CANCELAR
-        val btnCancelar = findViewById<LinearLayout>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
             finish()
         }
 
         // BOTON PAGAR CUOTA
-        val btnPagarCuota = findViewById<Button>(R.id.btnPagarCuota)
         btnPagarCuota.setOnClickListener {
-
-            val cuotaDao = CuotaMensualDao(this)
-
-            val modoPago = txtModoPago.text.toString()
-
-            val filas = cuotaDao.pagarPendientes(idCliente, modoPago)
-
-            if (filas > 0) {
-
-                val vista = layoutInflater.inflate(R.layout.dialog_template, null)
-
-                val txtMensaje = vista.findViewById<TextView>(R.id.textDialog)
-
-                txtMensaje.text = "Pago realizado correctamente"
-
-                val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
-
-                val dialog = AlertDialog.Builder(this)
-                    .setView(vista)
-                    .create()
-
-                dialog.show()
-
-                btnAceptar.setOnClickListener {
-
-                    dialog.dismiss()
-
-                    val intent = Intent(
-                        this,
-                        CarnetDigitalActivity::class.java
-                    )
-
-                    intent.putExtra(
-                        "idCliente",
-                        idCliente
-                    )
-
-                    startActivity(intent)
-
-                    finish()
-                }
-
-            } else {
-                mostrarError(
-                    mensajeError,
-                    "Error al pagar las cuotas"
-                )
-                return@setOnClickListener
-            }
-
+            pagarCuotaMensual()
         }
 
     }
 
     private fun inicializarVistas() {
+
         txtNombreApellido = findViewById(R.id.nombreSocio)
         txtModoPago = findViewById(R.id.modo_pago)
         txtMontoPagar = findViewById(R.id.txtTotalPagar)
         mensajeError = findViewById(R.id.mensajeError)
         rvCuotas = findViewById(R.id.rvCuotas)
+        btnVolver = findViewById(R.id.btnVolver)
+        btnCancelar = findViewById(R.id.btnCancelar)
+        btnPagarCuota = findViewById(R.id.btnPagarCuota)
     }
 
     private fun cargarDatos() {
@@ -168,6 +124,60 @@ class PagarCuotaMensualActivity : AppCompatActivity() {
 
         txtModoPago.setText(opciones[0], false)
     }
+
+    private fun pagarCuotaMensual(){
+
+        val cuotaDao = CuotaMensualDao(this)
+
+        val modoPago = txtModoPago.text.toString()
+
+        val filas = cuotaDao.pagarPendientes(idCliente, modoPago)
+
+        if (filas > 0) {
+
+            val vista = layoutInflater.inflate(R.layout.dialog_template, null)
+
+            val txtMensaje = vista.findViewById<TextView>(R.id.textDialog)
+
+            txtMensaje.text = "Pago realizado correctamente"
+
+            val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
+
+            val dialog = AlertDialog.Builder(this)
+                .setView(vista)
+                .create()
+
+            dialog.show()
+
+            btnAceptar.setOnClickListener {
+
+                dialog.dismiss()
+
+                val intent = Intent(
+                    this,
+                    CarnetDigitalActivity::class.java
+                )
+
+                intent.putExtra(
+                    "idCliente",
+                    idCliente
+                )
+
+                startActivity(intent)
+
+                finish()
+            }
+
+        } else {
+            mostrarError(
+                mensajeError,
+                "Error al pagar las cuotas"
+            )
+            return
+        }
+
+    }
+
 
     private fun mostrarError(textView: TextView, mensaje: String) {
         textView.text = mensaje

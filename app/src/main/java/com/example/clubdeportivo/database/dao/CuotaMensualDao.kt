@@ -16,6 +16,18 @@ class CuotaMensualDao(
 
     private val dbHelper = DatabaseHelper(context)
 
+    /**
+     * Crea la primera cuota mensual de un socio.
+     *
+     * La cuota se registra automáticamente como pagada
+     * al momento de realizar la inscripción.
+     *
+     * @param idCliente ID del socio.
+     * @param modoPago Medio de pago utilizado.
+     *
+     * @return ID de la cuota creada.
+     *         Retorna -1 si ocurre un error.
+     */
     fun crearPrimeraCuota(
         idCliente: Int,
         modoPago: String
@@ -98,6 +110,18 @@ class CuotaMensualDao(
         return resultado
     }
 
+    /**
+     * Obtiene todas las cuotas pendientes de pago
+     * de un socio.
+     *
+     * Las cuotas se devuelven ordenadas por período
+     * de forma ascendente.
+     *
+     * @param idCliente ID del socio.
+     *
+     * @return Lista de cuotas pendientes.
+     *         Si no existen deudas retorna una lista vacía.
+     */
     fun obtenerPendientes(
         idCliente: Int
     ): List<CuotaMensual> {
@@ -169,6 +193,16 @@ class CuotaMensualDao(
         return cuotas
     }
 
+    /**
+     * Obtiene la última cuota pagada de un socio.
+     *
+     * Se utiliza para determinar la vigencia del carnet
+     * digital y la fecha de vencimiento más reciente.
+     *
+     * @param idCliente ID del socio.
+     *
+     * @return Última cuota pagada o null si no existe.
+     */
     fun obtenerUltimaCuotaVigente(
         idCliente: Int
     ): CuotaMensual? {
@@ -230,6 +264,20 @@ class CuotaMensualDao(
 
         return cuota
     }
+    /**
+     * Marca todas las cuotas pendientes del socio
+     * como pagadas.
+     *
+     * Actualiza:
+     * - estado
+     * - fecha de pago
+     * - modo de pago
+     *
+     * @param idCliente ID del socio.
+     * @param modoPago Medio de pago utilizado.
+     *
+     * @return Cantidad de filas actualizadas.
+     */
     fun pagarPendientes(
         idCliente: Int,
         modoPago: String
@@ -266,6 +314,18 @@ class CuotaMensualDao(
         return filasActualizadas
     }
 
+    /**
+     * Obtiene la última cuota registrada para un socio,
+     * independientemente de su estado.
+     *
+     * Puede devolver una cuota pagada o pendiente.
+     *
+     * Se utiliza como base para generar nuevas cuotas.
+     *
+     * @param idCliente ID del socio.
+     *
+     * @return Última cuota registrada o null.
+     */
     fun obtenerUltimaCuota(
         idCliente: Int
     ): CuotaMensual? {
@@ -327,6 +387,17 @@ class CuotaMensualDao(
         return cuota
     }
 
+    /**
+     * Crea una nueva cuota pendiente.
+     *
+     * Método interno utilizado por el sistema para
+     * generar automáticamente cuotas vencidas.
+     *
+     * @param idCliente ID del socio.
+     * @param periodo Período correspondiente.
+     * @param fechaEmision Fecha de emisión.
+     * @param fechaVencimiento Fecha límite de pago.
+     */
     private fun crearCuotaPendiente(
         idCliente: Int,
         periodo: String,
@@ -372,6 +443,17 @@ class CuotaMensualDao(
         db.close()
     }
 
+    /**
+     * Genera automáticamente las cuotas pendientes
+     * que un socio debería tener hasta la fecha actual.
+     *
+     * El proceso toma la última cuota registrada y,
+     * mientras su fecha de vencimiento sea anterior
+     * al día actual, genera nuevas cuotas pendientes
+     * mes a mes.
+     *
+     * @param idCliente ID del socio.
+     */
     fun actualizarCuotasPendientes(
         idCliente: Int
     ) {

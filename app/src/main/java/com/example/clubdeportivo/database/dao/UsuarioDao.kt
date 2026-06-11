@@ -9,10 +9,18 @@ import com.example.clubdeportivo.models.Usuario
 class UsuarioDao(
     context: Context
 ) {
+
     private val dbHelper = DatabaseHelper(context)
 
+    /**
+     * Valida las credenciales de un usuario activo.
+     *
+     * @param numeroDocumento Documento del usuario.
+     * @param password Contraseña ingresada.
+     * @return Usuario si las credenciales son válidas, null en caso contrario.
+     */
     fun login(
-        numero_documento: String,
+        numeroDocumento: String,
         password: String
     ): Usuario? {
 
@@ -27,7 +35,7 @@ class UsuarioDao(
             AND activo = 1
             """.trimIndent(),
             arrayOf(
-                numero_documento,
+                numeroDocumento,
                 password
             )
         )
@@ -70,6 +78,12 @@ class UsuarioDao(
         return usuario
     }
 
+    /**
+     * Obtiene un usuario por su identificador.
+     *
+     * @param idUsuario Identificador del usuario.
+     * @return Usuario encontrado o null si no existe.
+     */
     fun obtenerPorId(
         idUsuario: Int
     ): Usuario? {
@@ -78,10 +92,10 @@ class UsuarioDao(
 
         val cursor = db.rawQuery(
             """
-        SELECT *
-        FROM usuarios
-        WHERE id_usuario = ?
-        """.trimIndent(),
+            SELECT *
+            FROM usuarios
+            WHERE id_usuario = ?
+            """.trimIndent(),
             arrayOf(idUsuario.toString())
         )
 
@@ -123,9 +137,17 @@ class UsuarioDao(
         return usuario
     }
 
+    /**
+     * Verifica si ya existe un usuario registrado
+     * con el tipo y número de documento indicado.
+     *
+     * @param tipoDocumento Tipo de documento.
+     * @param numeroDocumento Número de documento.
+     * @return true si existe, false en caso contrario.
+     */
     fun existeDocumento(
         tipoDocumento: Int,
-        numero_documento: String
+        numeroDocumento: String
     ): Boolean {
 
         val db = dbHelper.readableDatabase
@@ -140,7 +162,7 @@ class UsuarioDao(
             """.trimIndent(),
             arrayOf(
                 tipoDocumento.toString(),
-                numero_documento
+                numeroDocumento
             )
         )
 
@@ -152,6 +174,13 @@ class UsuarioDao(
         return existe
     }
 
+    /**
+     * Inserta un nuevo usuario en la base de datos.
+     *
+     * @param usuario Usuario a registrar.
+     * @return Id generado si la inserción fue exitosa.
+     * Retorna -1 en caso de error.
+     */
     fun insertar(
         usuario: Usuario
     ): Long {
@@ -160,19 +189,40 @@ class UsuarioDao(
 
         val values = ContentValues().apply {
 
-            put("numero_documento", usuario.numeroDocumento)
+            put(
+                "numero_documento",
+                usuario.numeroDocumento
+            )
 
-            put("tipo_documento", usuario.tipoDocumento)
+            put(
+                "tipo_documento",
+                usuario.tipoDocumento
+            )
 
-            put("nombre", usuario.nombre)
+            put(
+                "nombre",
+                usuario.nombre
+            )
 
-            put("apellido", usuario.apellido)
+            put(
+                "apellido",
+                usuario.apellido
+            )
 
-            put("password_usuario", usuario.passwordUsuario)
+            put(
+                "password_usuario",
+                usuario.passwordUsuario
+            )
 
-            put("id_rol", usuario.idRol)
+            put(
+                "id_rol",
+                usuario.idRol
+            )
 
-            put("activo", if (usuario.activo) 1 else 0)
+            put(
+                "activo",
+                if (usuario.activo) 1 else 0
+            )
         }
 
         val resultado = db.insert(

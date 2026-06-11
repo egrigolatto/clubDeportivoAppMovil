@@ -32,6 +32,9 @@ class RegistroSociosActivity : AppCompatActivity() {
     private lateinit var txtMontoPagar: TextView
     private lateinit var chkAptoFisico: CheckBox
     private lateinit var mensajeError: TextView
+    private lateinit var btnCancelar: Button
+    private lateinit var btnVolver: ImageView
+    private lateinit var btnRegistrarSocio: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,165 +48,17 @@ class RegistroSociosActivity : AppCompatActivity() {
         txtMontoPagar.text = "$ ${Config.MONTO_CUOTA_MENSUAL}"
 
         // BOTON VOLVER
-        val btnVolver = findViewById<ImageView>(R.id.btnVolver)
         btnVolver.setOnClickListener {
             finish()
         }
         // BOTON CANCELAR
-        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
             finish()
         }
         // BOTON REGISTRAR SOCIO
-        val btnRegistrarSocio = findViewById<Button>(R.id.btnRegistrarSocio)
 
         btnRegistrarSocio.setOnClickListener {
-
-            val tipoDocumentoDao = TipoDocumentoDao(this)
-            val tipoDocumentoSeleccionado =
-                tipoDocumentoDao.obtenerPorNombre(
-                    tipoDocumento.text.toString()
-                )
-            if (tipoDocumentoSeleccionado == null) {
-                mostrarError(
-                    mensajeError,
-                    "Seleccione un tipo de documento válido"
-                )
-                return@setOnClickListener
-            }
-
-            val nombre = txtNombre.text.toString().trim()
-            val apellido = txtApellido.text.toString().trim()
-            val documento = txtDocumento.text.toString().trim()
-            val email = txtEmail.text.toString().trim()
-            val telefono = txtTelefono.text.toString().trim()
-            val aptoFisico = chkAptoFisico.isChecked
-            val idTipoDocumento = tipoDocumentoSeleccionado.idTipoDocumento
-
-
-
-            if (
-                nombre.isEmpty() ||
-                apellido.isEmpty() ||
-                documento.isEmpty() ||
-                email.isEmpty()  ||
-                telefono.isEmpty()
-            ) {
-
-                mostrarError(
-                    mensajeError,
-                    "Complete todos los campos obligatorios"
-                )
-
-                return@setOnClickListener
-            }
-
-            if (!aptoFisico) {
-
-                mostrarError(
-                    mensajeError,
-                    "Debe presentar apto físico"
-                )
-
-                return@setOnClickListener
-            }
-
-            val clienteDao = ClienteDao(this)
-
-            if (
-                clienteDao.existeDocumento(
-                    idTipoDocumento,
-                    documento
-                )
-            ) {
-
-                mostrarError(
-                    mensajeError,
-                    "Ya existe un cliente con ese documento"
-                )
-
-                return@setOnClickListener
-            }
-
-            val cliente = Cliente(
-                nombre = nombre,
-                apellido = apellido,
-                tipoDocumento = idTipoDocumento,
-                numeroDocumento = documento,
-                email = email,
-                telefono = telefono,
-                esSocio = true,
-                aptoFisico = aptoFisico,
-                estado = "activo"
-            )
-
-            val resultado = clienteDao.insertar(cliente)
-
-            if (resultado > 0) {
-
-                val idCliente = resultado.toInt()
-
-                val cuotaDao = CuotaMensualDao(this)
-
-                val cuota =cuotaDao.crearPrimeraCuota(
-                    idCliente,
-                    txtModoPago.text.toString()
-                )
-
-                if (cuota == null) {
-                    mostrarError(
-                        mensajeError,
-                        "Error al crear la cuota mensual"
-                    )
-                    return@setOnClickListener
-                }
-
-                val vista = layoutInflater.inflate(R.layout.dialog_registro, null)
-
-                val txtMensajeRegistro = vista.findViewById<TextView>(R.id.txtMensajeRegistro)
-
-                txtMensajeRegistro.text =
-                    """
-                       Socio registrado correctamente
-                       Nombre: $nombre
-                       Apellido: $apellido
-                       DNI: $documento
-                       """.trimIndent()
-
-                val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
-
-                val dialog = AlertDialog.Builder(this)
-                    .setView(vista)
-                    .create()
-
-                dialog.show()
-
-                btnAceptar.setOnClickListener {
-
-                    dialog.dismiss()
-
-                    val intent = Intent(
-                        this,
-                        CarnetDigitalActivity::class.java
-                    )
-
-                    intent.putExtra(
-                        "idCliente",
-                        idCliente
-                    )
-
-                    startActivity(intent)
-
-                    finish()
-                }
-
-            } else {
-                mostrarError(
-                    mensajeError,
-                    "Error al crear el Socio"
-                )
-            }
-
+            registrarSocio()
         }
 
 
@@ -221,6 +76,9 @@ class RegistroSociosActivity : AppCompatActivity() {
         txtModoPago = findViewById(R.id.modo_pago)
         txtMontoPagar = findViewById(R.id.monto_pagar)
         mensajeError = findViewById(R.id.mensajeError)
+        btnCancelar = findViewById(R.id.btnCancelar)
+        btnVolver = findViewById(R.id.btnVolver)
+        btnRegistrarSocio = findViewById(R.id.btnRegistrarSocio)
     }
 
     private fun configurarTipoDocumento() {
@@ -269,6 +127,154 @@ class RegistroSociosActivity : AppCompatActivity() {
 
         txtModoPago.setText(opciones[0], false)
     }
+
+    private fun registrarSocio() {
+
+        val tipoDocumentoDao = TipoDocumentoDao(this)
+        val tipoDocumentoSeleccionado =
+            tipoDocumentoDao.obtenerPorNombre(
+                tipoDocumento.text.toString()
+            )
+        if (tipoDocumentoSeleccionado == null) {
+            mostrarError(
+                mensajeError,
+                "Seleccione un tipo de documento válido"
+            )
+            return
+        }
+
+        val nombre = txtNombre.text.toString().trim()
+        val apellido = txtApellido.text.toString().trim()
+        val documento = txtDocumento.text.toString().trim()
+        val email = txtEmail.text.toString().trim()
+        val telefono = txtTelefono.text.toString().trim()
+        val aptoFisico = chkAptoFisico.isChecked
+        val idTipoDocumento = tipoDocumentoSeleccionado.idTipoDocumento
+
+        if (
+            nombre.isEmpty() ||
+            apellido.isEmpty() ||
+            documento.isEmpty() ||
+            email.isEmpty() ||
+            telefono.isEmpty()
+        ) {
+
+            mostrarError(
+                mensajeError,
+                "Complete todos los campos obligatorios"
+            )
+
+            return
+        }
+
+        if (!aptoFisico) {
+
+            mostrarError(
+                mensajeError,
+                "Debe presentar apto físico"
+            )
+
+            return
+        }
+
+        val clienteDao = ClienteDao(this)
+
+        if (
+            clienteDao.existeDocumento(
+                idTipoDocumento,
+                documento
+            )
+        ) {
+
+            mostrarError(
+                mensajeError,
+                "Ya existe un cliente con ese documento"
+            )
+
+            return
+        }
+
+        val cliente = Cliente(
+            nombre = nombre,
+            apellido = apellido,
+            tipoDocumento = idTipoDocumento,
+            numeroDocumento = documento,
+            email = email,
+            telefono = telefono,
+            esSocio = true,
+            aptoFisico = aptoFisico,
+            estado = "activo"
+        )
+
+        val resultado = clienteDao.insertar(cliente)
+
+        if (resultado < 0) {
+            mostrarError(
+                mensajeError,
+                "Error al crear el usuario"
+            )
+            return
+        }
+
+        val idCliente = resultado.toInt()
+
+        val cuotaDao = CuotaMensualDao(this)
+
+        val cuota = cuotaDao.crearPrimeraCuota(
+            idCliente,
+            txtModoPago.text.toString()
+        )
+
+        if (cuota == null) {
+            mostrarError(
+                mensajeError,
+                "Error al crear la cuota mensual"
+            )
+            return
+        }
+
+        val vista = layoutInflater.inflate(R.layout.dialog_registro, null)
+
+        val txtMensajeRegistro = vista.findViewById<TextView>(R.id.txtMensajeRegistro)
+
+        txtMensajeRegistro.text =
+            """
+                       Socio registrado correctamente
+                       Nombre: $nombre
+                       Apellido: $apellido
+                       Documento: $documento
+                       """.trimIndent()
+
+        val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(vista)
+            .create()
+
+        dialog.show()
+
+        btnAceptar.setOnClickListener {
+
+            dialog.dismiss()
+
+            val intent = Intent(
+                this,
+                CarnetDigitalActivity::class.java
+            )
+
+            intent.putExtra(
+                "idCliente",
+                idCliente
+            )
+
+            startActivity(intent)
+
+            finish()
+        }
+
+    }
+
+    }
     private fun mostrarError(textView: TextView, mensaje: String) {
         textView.text = mensaje
         textView.visibility = View.VISIBLE
@@ -277,4 +283,3 @@ class RegistroSociosActivity : AppCompatActivity() {
             textView.visibility = View.INVISIBLE
         }, 3000)
     }
-}

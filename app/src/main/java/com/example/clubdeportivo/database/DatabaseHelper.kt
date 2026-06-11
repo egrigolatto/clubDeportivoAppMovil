@@ -4,6 +4,13 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
+
+/**
+ * Responsable de crear y actualizar la base de datos SQLite.
+ *
+ * Se ejecuta automáticamente la primera vez que la aplicación
+ * accede a la base de datos.
+ */
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     context,
     DatabaseContract.DATABASE_NAME,
@@ -11,6 +18,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     DatabaseContract.DATABASE_VERSION
 ) {
 
+    /**
+     * Se ejecuta únicamente cuando la base de datos
+     * se crea por primera vez.
+     *
+     * Crea todas las tablas e inserta los datos iniciales.
+     */
     override fun onCreate(db: SQLiteDatabase) {
 
         // Crear tablas
@@ -27,6 +40,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         insertarDatosIniciales(db)
     }
 
+
+    /**
+     * Se ejecuta cuando aumenta la versión de la base de datos.
+     *
+     * Elimina todas las tablas existentes y las vuelve a crear.
+     *
+     */
     override fun onUpgrade(
         db: SQLiteDatabase,
         oldVersion: Int,
@@ -43,6 +63,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         onCreate(db)
     }
 
+    /**
+     * Inserta todos los registros necesarios para que
+     * el sistema pueda comenzar a funcionar.
+     */
     private fun insertarDatosIniciales(db: SQLiteDatabase) {
 
         insertarRoles(db)
@@ -51,13 +75,23 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 
         insertarAdministrador(db)
 
-        insertarCliente(db)
+        insertarClienteSocio(db)
+
+        insertarClienteNoSocio(db)
 
         insertarActividades(db)
 
         insertarCuotasPrueba(db)
+
+        insertarEmpleado(db)
     }
 
+    /**
+     * Crea los roles básicos del sistema.
+     *
+     * 1 = Administrador
+     * 2 = Empleado
+     */
     private fun insertarRoles(db: SQLiteDatabase) {
 
         db.execSQL("""
@@ -84,6 +118,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         """.trimIndent())
     }
 
+    /**
+     * Crea el usuario administrador inicial.
+     *
+     * Documento: 1234
+     * Contraseña: 1234
+     *
+     */
     private fun insertarAdministrador(db: SQLiteDatabase) {
 
         db.execSQL("""
@@ -97,10 +138,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             activo
         )
         VALUES(
+            'Usuario',
             'Administrador',
-            'Principal',
             1,
-            '1234',
+            '1111',
             '1234',
             1,
             1
@@ -108,9 +149,44 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     """.trimIndent())
     }
 
+    /**
+     * Crea el usuario empleado inicial.
+     *
+     * Documento: 1234
+     * Contraseña: 1234
+     *
+     */
+    private fun insertarEmpleado(db: SQLiteDatabase) {
+
+        db.execSQL("""
+        INSERT INTO usuarios(
+            nombre,
+            apellido,
+            tipo_documento,
+            numero_documento,
+            password_usuario,
+            id_rol,
+            activo
+        )
+        VALUES(
+            'Usuario',
+            'Empleado',
+            1,
+            '2222',
+            '1234',
+            2,
+            1
+        )
+    """.trimIndent())
+    }
 
 
-    private fun insertarCliente(db: SQLiteDatabase){
+
+    /**
+     * Inserta un cliente socio de prueba.
+     *
+     */
+    private fun insertarClienteSocio(db: SQLiteDatabase){
 
         db.execSQL("""
         INSERT INTO clientes(
@@ -138,6 +214,39 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     """.trimIndent())
     }
 
+    /**
+     * Inserta un cliente no socio de prueba.
+     *
+     */
+    private fun insertarClienteNoSocio(db: SQLiteDatabase){
+
+        db.execSQL("""
+        INSERT INTO clientes(
+            nombre,
+            apellido,
+            tipo_documento,
+            numero_documento,
+            email,
+            telefono,
+            es_socio,
+            apto_fisico,
+            estado
+        )
+        VALUES(
+            'Lucas',
+            'Gonzales',
+            1,
+            '88888888',
+            'lucas@gmail.com',
+            '3434123456',
+            0,
+            1,
+            'activo'
+        )
+    """.trimIndent())
+    }
+
+
     private fun insertarActividades(db: SQLiteDatabase) {
 
         db.execSQL("""
@@ -154,6 +263,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     """.trimIndent())
     }
 
+    /**
+     * Inserta una cuota pendiente de prueba.
+     *
+     * Se utiliza para probar la generación automática
+     * de cuotas vencidas y la lista de morosos.
+     */
     private fun insertarCuotasPrueba(
         db: SQLiteDatabase
     ) {

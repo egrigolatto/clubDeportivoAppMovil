@@ -13,77 +13,102 @@ import com.example.clubdeportivo.database.DatabaseHelper
 import com.example.clubdeportivo.database.dao.UsuarioDao
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var txtDocumento: EditText
+    private lateinit var txtContrasenia: EditText
+    private lateinit var txtMensajeError: TextView
+    private lateinit var btnIngresar: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Fuerza la creación de la base de datos si aún no existe
+        inicializarVistas()
+        inicializarBaseDeDatos()
+
+        btnIngresar.setOnClickListener {
+            realizarLogin()
+        }
+    }
+
+    private fun inicializarVistas() {
+        txtDocumento = findViewById(R.id.usuario)
+        txtContrasenia = findViewById(R.id.password)
+        txtMensajeError = findViewById(R.id.mensajeErrorLogin)
+        btnIngresar = findViewById(R.id.btnIngresar)
+    }
+
+    private fun inicializarBaseDeDatos() {
         val dbHelper = DatabaseHelper(this)
         dbHelper.writableDatabase
         dbHelper.close()
+    }
+
+    private fun realizarLogin() {
+
+        val documento = txtDocumento.text.toString().trim()
+        val contrasenia = txtContrasenia.text.toString().trim()
+
+        if (documento.isEmpty() || contrasenia.isEmpty()) {
+            mostrarError("Complete los campos")
+            return
+        }
 
         val usuarioDao = UsuarioDao(this)
 
-        // Variables de la vista
-        val usuario = findViewById<EditText>(R.id.usuario)
-        val password = findViewById<EditText>(R.id.password)
-        val mensajeErrorLogin = findViewById<TextView>(R.id.mensajeErrorLogin)
-        val btnIngresar = findViewById<Button>(R.id.btnIngresar)
+        val usuarioLogueado = usuarioDao.login(
+            documento,
+            contrasenia
+        )
 
+        if (usuarioLogueado == null) {
 
-        // Evento click del botón Ingresar
-        btnIngresar.setOnClickListener {
+            mostrarError("Datos incorrectos")
 
-            val documento = usuario.text.toString().trim()
-            val contrasenia = password.text.toString().trim()
+            return
+        }
 
+        // Guardar sesión
+        val prefs = getSharedPreferences(
+            "sesion",
+            MODE_PRIVATE
+        )
 
-            if (documento.isEmpty() || contrasenia.isEmpty()) {
-                mostrarError(mensajeErrorLogin, "Complete los campos")
-                return@setOnClickListener
-            }
-
-            val usuarioLogueado = usuarioDao.login(
-                documento,
-                contrasenia
-            )
-
-            if (usuarioLogueado == null) {
-                mostrarError(
-                    mensajeErrorLogin,
-                    "Datos incorrectos"
-                )
-                return@setOnClickListener
-            }
-
-            Toast.makeText(
-                this,
-                "Bienvenido ${usuarioLogueado.nombre}",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            val intent = Intent(
-                this,
-                MenuPrincipalActivity::class.java
-            )
-
-            intent.putExtra(
+        prefs.edit()
+            .putInt(
                 "idUsuario",
                 usuarioLogueado.idUsuario
             )
+            .apply()
 
-            startActivity(intent)
-            finish()
+        Toast.makeText(
+            this,
+            "Bienvenido ${usuarioLogueado.nombre}",
+            Toast.LENGTH_SHORT
+        ).show()
 
-        }
+        startActivity(
+            Intent(
+                this,
+                MenuPrincipalActivity::class.java
+            )
+        )
 
+        finish()
     }
-    private fun mostrarError(textView: TextView, mensaje: String) {
-        textView.text = mensaje
-        textView.visibility = View.VISIBLE
 
-        textView.postDelayed({
-            textView.visibility = View.INVISIBLE
+    private fun mostrarError(
+        mensaje: String
+    ) {
+
+        txtMensajeError.text = mensaje
+
+        txtMensajeError.visibility = View.VISIBLE
+
+        txtMensajeError.postDelayed({
+
+            txtMensajeError.visibility = View.INVISIBLE
+
         }, 3000)
     }
 }

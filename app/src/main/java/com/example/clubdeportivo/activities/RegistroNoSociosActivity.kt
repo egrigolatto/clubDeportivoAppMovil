@@ -27,6 +27,9 @@ class RegistroNoSociosActivity : AppCompatActivity() {
     private lateinit var txtTelefono: EditText
     private lateinit var chkAptoFisico: CheckBox
     private lateinit var mensajeError: TextView
+    private lateinit var btnCancelar: Button
+    private lateinit var btnVolver: ImageView
+    private lateinit var btnRegistrarNoSocio: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,142 +39,16 @@ class RegistroNoSociosActivity : AppCompatActivity() {
         configurarTipoDocumento()
 
         // BOTON VOLVER
-        val btnVolver = findViewById<ImageView>(R.id.btnVolver)
         btnVolver.setOnClickListener {
             finish()
         }
         // BOTON CANCELAR
-        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
             finish()
         }
         // BOTON REGISTRAR NO SOCIO
-        val btnRegistrarNoSocio = findViewById<Button>(R.id.btnRegistrarNoSocio)
-
         btnRegistrarNoSocio.setOnClickListener {
-
-            val tipoDocumentoDao = TipoDocumentoDao(this)
-            val tipoDocumentoSeleccionado =
-                tipoDocumentoDao.obtenerPorNombre(
-                    tipoDocumento.text.toString()
-                )
-            if (tipoDocumentoSeleccionado == null) {
-                mostrarError(
-                    mensajeError,
-                    "Seleccione un tipo de documento válido"
-                )
-                return@setOnClickListener
-            }
-
-            val nombre = txtNombre.text.toString().trim()
-            val apellido = txtApellido.text.toString().trim()
-            val documento = txtDocumento.text.toString().trim()
-            val email = txtEmail.text.toString().trim()
-            val telefono = txtTelefono.text.toString().trim()
-            val aptoFisico = chkAptoFisico.isChecked
-            val idTipoDocumento = tipoDocumentoSeleccionado.idTipoDocumento
-
-            if (
-                nombre.isEmpty() ||
-                apellido.isEmpty() ||
-                documento.isEmpty() ||
-                email.isEmpty()  ||
-                telefono.isEmpty()
-            ) {
-
-                mostrarError(
-                    mensajeError,
-                    "Complete todos los campos obligatorios"
-                )
-
-                return@setOnClickListener
-            }
-
-            if (!aptoFisico) {
-
-                mostrarError(
-                    mensajeError,
-                    "Debe presentar apto físico"
-                )
-
-                return@setOnClickListener
-            }
-
-            val clienteDao = ClienteDao(this)
-
-            if (
-                clienteDao.existeDocumento(
-                    idTipoDocumento,
-                    documento
-                )
-            ) {
-
-                mostrarError(
-                    mensajeError,
-                    "Ya existe un cliente con ese documento"
-                )
-
-                return@setOnClickListener
-            }
-
-            val cliente = Cliente(
-                nombre = nombre,
-                apellido = apellido,
-                tipoDocumento = idTipoDocumento,
-                numeroDocumento = documento,
-                email = email,
-                telefono = telefono,
-                esSocio = false,
-                aptoFisico = aptoFisico,
-                estado = "activo"
-            )
-
-            val resultado = clienteDao.insertar(cliente)
-
-            if (resultado > 0) {
-
-                val vista = layoutInflater.inflate(R.layout.dialog_registro, null)
-
-                val txtMensajeRegistro = vista.findViewById<TextView>(R.id.txtMensajeRegistro)
-
-                txtMensajeRegistro.text =
-                    """
-                       No Socio registrado correctamente
-                       Nombre: $nombre
-                       Apellido: $apellido
-                       DNI: $documento
-                       """.trimIndent()
-
-                val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
-
-                val dialog = AlertDialog.Builder(this)
-                    .setView(vista)
-                    .create()
-
-                dialog.show()
-
-                btnAceptar.setOnClickListener {
-
-                    dialog.dismiss()
-
-                    txtNombre.text.clear()
-                    txtApellido.text.clear()
-                    txtDocumento.text.clear()
-                    txtEmail.text.clear()
-                    txtTelefono.text.clear()
-
-                    chkAptoFisico.isChecked = false
-
-
-                }
-
-            } else {
-                mostrarError(
-                    mensajeError,
-                    "Error al crear el Socio"
-                )
-            }
-
+            registrarNoSocio()
         }
 
     }
@@ -186,12 +63,14 @@ class RegistroNoSociosActivity : AppCompatActivity() {
         txtTelefono = findViewById(R.id.telefono)
         chkAptoFisico = findViewById(R.id.aptoFisico)
         mensajeError = findViewById(R.id.mensajeError)
+        btnCancelar = findViewById(R.id.btnCancelar)
+        btnVolver = findViewById(R.id.btnVolver)
+        btnRegistrarNoSocio = findViewById(R.id.btnRegistrarNoSocio)
     }
 
     private fun configurarTipoDocumento() {
 
         val tipoDocumentoDao = TipoDocumentoDao(this)
-
         val tiposDocumento = tipoDocumentoDao.obtenerTodos()
 
         val nombres = tiposDocumento.map { it.nombre }
@@ -211,6 +90,131 @@ class RegistroNoSociosActivity : AppCompatActivity() {
         if (nombres.isNotEmpty()) {
             tipoDocumento.setText(nombres[0], false)
         }
+    }
+
+    private fun registrarNoSocio() {
+
+        val tipoDocumentoDao = TipoDocumentoDao(this)
+        val tipoDocumentoSeleccionado = tipoDocumentoDao.obtenerPorNombre(
+                tipoDocumento.text.toString()
+        )
+
+        if (tipoDocumentoSeleccionado == null) {
+            mostrarError(
+                mensajeError,
+                "Seleccione un tipo de documento válido"
+            )
+            return
+        }
+
+        val nombre = txtNombre.text.toString().trim()
+        val apellido = txtApellido.text.toString().trim()
+        val documento = txtDocumento.text.toString().trim()
+        val email = txtEmail.text.toString().trim()
+        val telefono = txtTelefono.text.toString().trim()
+        val aptoFisico = chkAptoFisico.isChecked
+        val idTipoDocumento = tipoDocumentoSeleccionado.idTipoDocumento
+
+        if (
+            nombre.isEmpty() ||
+            apellido.isEmpty() ||
+            documento.isEmpty() ||
+            email.isEmpty()  ||
+            telefono.isEmpty()
+        ) {
+
+            mostrarError(
+                mensajeError,
+                "Complete todos los campos obligatorios"
+            )
+
+            return
+        }
+
+        if (!aptoFisico) {
+
+            mostrarError(
+                mensajeError,
+                "Debe presentar apto físico"
+            )
+
+            return
+        }
+
+        val clienteDao = ClienteDao(this)
+
+        if (
+            clienteDao.existeDocumento(
+                idTipoDocumento,
+                documento
+            )
+        ) {
+
+            mostrarError(
+                mensajeError,
+                "Ya existe un cliente con ese documento"
+            )
+
+            return
+        }
+
+        val cliente = Cliente(
+            nombre = nombre,
+            apellido = apellido,
+            tipoDocumento = idTipoDocumento,
+            numeroDocumento = documento,
+            email = email,
+            telefono = telefono,
+            esSocio = false,
+            aptoFisico = aptoFisico,
+            estado = "activo"
+        )
+
+        val resultado = clienteDao.insertar(cliente)
+
+        if (resultado < 0) {
+            mostrarError(
+                mensajeError,
+                "Error al crear el usuario"
+            )
+            return
+        }
+
+        val vista = layoutInflater.inflate(R.layout.dialog_registro, null)
+
+        val txtMensajeRegistro = vista.findViewById<TextView>(R.id.txtMensajeRegistro)
+
+        txtMensajeRegistro.text =
+            """
+                       No Socio registrado correctamente
+                       Nombre: $nombre
+                       Apellido: $apellido
+                       Documento: $documento
+                       """.trimIndent()
+
+        val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(vista)
+            .create()
+
+        dialog.show()
+
+        btnAceptar.setOnClickListener {
+
+            dialog.dismiss()
+
+            txtNombre.text.clear()
+            txtApellido.text.clear()
+            txtDocumento.text.clear()
+            txtEmail.text.clear()
+            txtTelefono.text.clear()
+
+            chkAptoFisico.isChecked = false
+
+
+        }
+
     }
 
     private fun mostrarError(textView: TextView, mensaje: String) {

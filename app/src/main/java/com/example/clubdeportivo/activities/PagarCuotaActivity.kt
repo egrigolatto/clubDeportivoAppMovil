@@ -18,6 +18,10 @@ class PagarCuotaActivity : AppCompatActivity() {
 
     private lateinit var txtDocumento: EditText
     private lateinit var mensajeError: TextView
+    private lateinit var btnVolver: ImageView
+    private lateinit var btnCancelar: LinearLayout
+    private lateinit var btnConfirmar: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,93 +30,18 @@ class PagarCuotaActivity : AppCompatActivity() {
         inicializarVistas()
 
         // BOTON VOLVER
-        val btnVolver = findViewById<ImageView>(R.id.btnVolver)
         btnVolver.setOnClickListener {
             finish()
         }
 
         // BOTON CANCELAR
-        val btnCancelar = findViewById<LinearLayout>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
             finish()
         }
 
         // BOTON CONFIRMAR
-        val btnConfirmar = findViewById<Button>(R.id.btnConfirmar)
-
         btnConfirmar.setOnClickListener {
-
-            val documento = txtDocumento.text.toString().trim()
-
-            if (documento.isEmpty()) {
-                mostrarError(
-                    mensajeError,
-                    "Ingrese un documento"
-                )
-                return@setOnClickListener
-            }
-
-            val clienteDao = ClienteDao(this)
-
-            val cliente = clienteDao.obtenerPorDocumento(documento)
-
-            if (cliente == null) {
-                mostrarDialogo(
-                    "El cliente no se encuentra registrado",
-                    2
-                )
-                return@setOnClickListener
-            }
-
-            val cuotaMensualDao = CuotaMensualDao(this)
-
-            if (cliente.esSocio) {
-                // Genera automáticamente las cuotas faltantes
-                cuotaMensualDao.actualizarCuotasPendientes(
-                    cliente.idCliente
-                )
-
-                val cuotasPendientes =
-                    cuotaMensualDao.obtenerPendientes(
-                        cliente.idCliente
-                    )
-
-                if (cuotasPendientes.isEmpty()) {
-
-                    mostrarDialogo(
-                        "No registra deuda",
-                        1
-                    )
-
-                    return@setOnClickListener
-                }
-
-                val intent = Intent(
-                    this,
-                    PagarCuotaMensualActivity::class.java
-                )
-
-                intent.putExtra(
-                    "idCliente",
-                    cliente.idCliente
-                )
-
-                startActivity(intent)
-
-            } else {
-
-                val intent = Intent(
-                    this,
-                    PagarCuotaDiariaActivity::class.java
-                )
-
-                intent.putExtra(
-                    "idCliente",
-                    cliente.idCliente
-                )
-
-                startActivity(intent)
-            }
+            pagarCuota()
         }
 
 
@@ -121,6 +50,84 @@ class PagarCuotaActivity : AppCompatActivity() {
     private fun inicializarVistas() {
         txtDocumento = findViewById(R.id.documentoCliente)
         mensajeError = findViewById(R.id.mensajeError)
+        btnVolver = findViewById(R.id.btnVolver)
+        btnCancelar = findViewById(R.id.btnCancelar)
+        btnConfirmar = findViewById(R.id.btnConfirmar)
+    }
+
+    private fun pagarCuota (){
+
+        val documento = txtDocumento.text.toString().trim()
+
+        if (documento.isEmpty()) {
+            mostrarError(
+                mensajeError,
+                "Ingrese un documento"
+            )
+            return
+        }
+
+        val clienteDao = ClienteDao(this)
+
+        val cliente = clienteDao.obtenerPorDocumento(documento)
+
+        if (cliente == null) {
+            mostrarDialogo(
+                "El cliente no se encuentra registrado",
+                2
+            )
+            return
+        }
+
+        val cuotaMensualDao = CuotaMensualDao(this)
+
+        if (cliente.esSocio) {
+            // Genera automáticamente las cuotas faltantes
+            cuotaMensualDao.actualizarCuotasPendientes(
+                cliente.idCliente
+            )
+
+            val cuotasPendientes =
+                cuotaMensualDao.obtenerPendientes(
+                    cliente.idCliente
+                )
+
+            if (cuotasPendientes.isEmpty()) {
+
+                mostrarDialogo(
+                    "No registra deuda",
+                    1
+                )
+
+                return
+            }
+
+            val intent = Intent(
+                this,
+                PagarCuotaMensualActivity::class.java
+            )
+
+            intent.putExtra(
+                "idCliente",
+                cliente.idCliente
+            )
+
+            startActivity(intent)
+
+        } else {
+
+            val intent = Intent(
+                this,
+                PagarCuotaDiariaActivity::class.java
+            )
+
+            intent.putExtra(
+                "idCliente",
+                cliente.idCliente
+            )
+
+            startActivity(intent)
+        }
     }
 
     private fun mostrarDialogo(

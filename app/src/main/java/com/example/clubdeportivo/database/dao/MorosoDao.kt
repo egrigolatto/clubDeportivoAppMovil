@@ -8,6 +8,17 @@ class MorosoDao(context: Context) {
 
     private val dbHelper = DatabaseHelper(context)
 
+    /**
+     * Obtiene la lista de socios que poseen
+     * al menos una cuota mensual pendiente.
+     *
+     * Se consideran morosos todos los clientes
+     * que tengan registros en cuotas_mensuales
+     * con estado = 'pendiente'.
+     *
+     * @return Lista de morosos para mostrar
+     *         en el RecyclerView.
+     */
     fun obtenerMorosos(): List<MorosoUi> {
 
         val db = dbHelper.readableDatabase
@@ -26,8 +37,6 @@ class MorosoDao(context: Context) {
 
         val lista = mutableListOf<MorosoUi>()
 
-        var index = 1
-
         while (cursor.moveToNext()) {
 
             lista.add(
@@ -38,8 +47,6 @@ class MorosoDao(context: Context) {
                     estado = "VENCIDO"
                 )
             )
-
-            index++
         }
 
         cursor.close()

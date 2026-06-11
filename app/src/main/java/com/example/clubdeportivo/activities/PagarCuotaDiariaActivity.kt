@@ -28,6 +28,10 @@ class PagarCuotaDiariaActivity : AppCompatActivity() {
     private lateinit var rvActividades: RecyclerView
     private lateinit var mensajeError: TextView
     private lateinit var listaUi: MutableList<ActividadUi>
+    private lateinit var btnVolver: ImageView
+    private lateinit var btnCancelar: LinearLayout
+    private lateinit var btnPagarCuota: Button
+
 
     private var idCliente = -1
 
@@ -49,85 +53,19 @@ class PagarCuotaDiariaActivity : AppCompatActivity() {
         }
 
         // BOTON VOLVER
-        val btnVolver = findViewById<ImageView>(R.id.btnVolver)
         btnVolver.setOnClickListener {
             finish()
         }
 
         // BOTON CANCELAR
-        val btnCancelar = findViewById<LinearLayout>(R.id.btnCancelar)
         btnCancelar.setOnClickListener {
             finish()
         }
 
         // BOTON PAGAR CUOTA
-        val btnPagarCuota = findViewById<Button>(R.id.btnPagarCuota)
         btnPagarCuota.setOnClickListener {
-
-            val modoPago = txtModoPago.text.toString()
-
-            val seleccionadas = listaUi.filter { it.seleccionada }
-
-            if (seleccionadas.isEmpty()) {
-                mostrarError(mensajeError, "Seleccione al menos una actividad")
-                return@setOnClickListener
-            }
-
-            val cuotaDao = CuotaDiariaDao(this)
-
-            var exitos = 0
-            var duplicadas = 0
-
-            seleccionadas.forEach { actividad ->
-
-                val resultado = cuotaDao.crearCuotaDiaria(
-                    idCliente = idCliente,
-                    idActividad = actividad.idActividad,
-                    modoPago = modoPago
-                )
-
-                when {
-                    resultado > 0 -> exitos++
-                    resultado == -1L -> duplicadas++
-                }
-            }
-
-            if (exitos > 0) {
-
-                val vista = layoutInflater.inflate(R.layout.dialog_template, null)
-
-                val mensaje = vista.findViewById<TextView>(R.id.textDialog)
-                val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
-
-                mensaje.text = "Pago realizado correctamente"
-
-                val dialog = AlertDialog.Builder(this)
-                    .setView(vista)
-                    .create()
-
-                dialog.show()
-
-                btnAceptar.setOnClickListener {
-                    dialog.dismiss()
-                    finish()
-                }
-
-            } else {
-
-                mostrarError(
-                    mensajeError,
-                    "No se pudo registrar el pago"
-                )
-            }
-
-
-            if (duplicadas > 0) {
-                println("Actividades ya pagadas hoy: $duplicadas")
-            }
-
-
+            pagarCuotaDiaria()
         }
-
     }
 
     private fun inicializarVistas() {
@@ -136,6 +74,9 @@ class PagarCuotaDiariaActivity : AppCompatActivity() {
         txtMontoPagar = findViewById(R.id.txtTotalPagar)
         mensajeError = findViewById(R.id.mensajeError)
         rvActividades = findViewById(R.id.rvActividades)
+        btnVolver = findViewById(R.id.btnVolver)
+        btnCancelar = findViewById(R.id.btnCancelar)
+        btnPagarCuota = findViewById(R.id.btnPagarCuota)
     }
 
     private fun configurarModoPago() {
@@ -198,6 +139,79 @@ class PagarCuotaDiariaActivity : AppCompatActivity() {
             txtNombreApellido.text = "${cliente.nombre} ${cliente.apellido}"
         }
     }
+
+    private fun pagarCuotaDiaria() {
+
+        val modoPago = txtModoPago.text.toString()
+
+        val seleccionadas = listaUi.filter { it.seleccionada }
+
+        if (seleccionadas.isEmpty()) {
+            mostrarError(mensajeError, "Seleccione al menos una actividad")
+            return
+        }
+
+        val cuotaDao = CuotaDiariaDao(this)
+
+        var exitos = 0
+        var duplicadas = 0
+
+        seleccionadas.forEach { actividad ->
+
+            val resultado = cuotaDao.crearCuotaDiaria(
+                idCliente = idCliente,
+                idActividad = actividad.idActividad,
+                modoPago = modoPago
+            )
+
+            when {
+                resultado > 0 -> exitos++
+                resultado == -1L -> duplicadas++
+            }
+        }
+
+        if (exitos > 0) {
+
+            val vista = layoutInflater.inflate(R.layout.dialog_template, null)
+
+            val mensaje = vista.findViewById<TextView>(R.id.textDialog)
+            val btnAceptar = vista.findViewById<Button>(R.id.btnAceptar)
+
+            mensaje.text =
+                if (duplicadas > 0) {
+                    """
+            Se registraron $exitos actividades.
+
+            $duplicadas actividades ya habían sido abonadas hoy.
+            """.trimIndent()
+                } else {
+                    "Pago realizado correctamente"
+                }
+
+            val dialog = AlertDialog.Builder(this)
+                .setView(vista)
+                .create()
+
+            dialog.show()
+
+            btnAceptar.setOnClickListener {
+                dialog.dismiss()
+                finish()
+            }
+
+        } else {
+
+            mostrarError(
+                mensajeError,
+                "Todas las actividades seleccionadas ya fueron abonadas hoy"
+            )
+        }
+
+
+    }
+
+
+
 
     private fun mostrarError(textView: TextView, mensaje: String) {
         textView.text = mensaje

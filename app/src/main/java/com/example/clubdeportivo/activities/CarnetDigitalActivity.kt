@@ -18,6 +18,8 @@ class CarnetDigitalActivity : AppCompatActivity() {
     private lateinit var txtDocumento: TextView
     private lateinit var txtPeriodo: TextView
     private lateinit var txtFechaVencimiento: TextView
+    private lateinit var btnVolver: ImageView
+    private lateinit var btnCompartir: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,14 +37,12 @@ class CarnetDigitalActivity : AppCompatActivity() {
         }
 
         // BOTON VOLVER
-        val btnVolver = findViewById<ImageView>(R.id.btnVolver)
         btnVolver.setOnClickListener {
             val intent = Intent(this, MenuPrincipalActivity::class.java)
             startActivity(intent)
         }
 
         // BOTON COMPARTIR
-        val btnCompartir = findViewById<Button>(R.id.btnCompartir)
         btnCompartir.setOnClickListener {
 
             val vista = layoutInflater.inflate(R.layout.dialog_template, null)
@@ -74,17 +74,12 @@ class CarnetDigitalActivity : AppCompatActivity() {
 
     private fun inicializarVistas() {
 
-        txtNombreApellido =
-            findViewById(R.id.nombreSocio)
-
-        txtDocumento =
-            findViewById(R.id.numeroDocumento)
-
-        txtPeriodo =
-            findViewById(R.id.periodo)
-
-        txtFechaVencimiento =
-            findViewById(R.id.fechaVencimiento)
+        txtNombreApellido = findViewById(R.id.nombreSocio)
+        txtDocumento = findViewById(R.id.numeroDocumento)
+        txtPeriodo = findViewById(R.id.periodo)
+        txtFechaVencimiento = findViewById(R.id.fechaVencimiento)
+        btnVolver = findViewById(R.id.btnVolver)
+        btnCompartir = findViewById(R.id.btnCompartir)
     }
 
     private fun cargarDatosCarnet(
