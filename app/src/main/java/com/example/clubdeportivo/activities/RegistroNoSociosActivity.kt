@@ -16,6 +16,7 @@ import com.example.clubdeportivo.database.dao.ClienteDao
 import com.example.clubdeportivo.database.dao.TipoDocumentoDao
 import com.example.clubdeportivo.models.Cliente
 import android.view.View
+import com.example.clubdeportivo.utils.Validaciones
 
 class RegistroNoSociosActivity : AppCompatActivity() {
 
@@ -138,6 +139,42 @@ class RegistroNoSociosActivity : AppCompatActivity() {
                 "Debe presentar apto físico"
             )
 
+            return
+        }
+        if (!Validaciones.esDocumentoValido(documento)) {
+            mostrarError(
+                mensajeError,
+                "Ingrese un documento válido"
+            )
+            return
+        }
+        if (!Validaciones.esEmailValido(email)) {
+            mostrarError(
+                mensajeError,
+                "Ingrese un email válido"
+            )
+            return
+        }
+        if (!Validaciones.esTelefonoValido(telefono)) {
+            mostrarError(
+                mensajeError,
+                "Ingrese un teléfono válido"
+            )
+            return
+        }
+        if (!Validaciones.longitudMinima(nombre, 2) ){
+            mostrarError(
+                mensajeError,
+                "El nombre debe tener al menos 2 caracteres"
+            )
+            return
+        }
+
+        if (!Validaciones.longitudMinima(apellido, 2) ){
+            mostrarError(
+                mensajeError,
+                "El nombre debe tener al menos 2 caracteres"
+            )
             return
         }
 

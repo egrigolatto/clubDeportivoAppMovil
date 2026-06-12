@@ -15,6 +15,7 @@ import com.example.clubdeportivo.database.dao.RolDao
 import com.example.clubdeportivo.database.dao.TipoDocumentoDao
 import com.example.clubdeportivo.database.dao.UsuarioDao
 import com.example.clubdeportivo.models.Usuario
+import com.example.clubdeportivo.utils.Validaciones
 
 class RegistrarUsuarioActivity : AppCompatActivity() {
 
@@ -167,6 +168,29 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
             mostrarError(mensajeError, "Las contraseñas no coinciden")
             return
         }
+
+        if (!Validaciones.esDocumentoValido(numeroDocumento)) {
+            mostrarError(
+                mensajeError,
+                "Ingrese un documento válido"
+            )
+            return
+        }
+        if (!Validaciones.longitudMinima(nombre, 2) ){
+            mostrarError(
+                mensajeError,
+                "El nombre debe tener al menos 2 caracteres"
+            )
+            return
+        }
+        if (!Validaciones.longitudMinima(apellido, 2) ){
+            mostrarError(
+                mensajeError,
+                "El nombre debe tener al menos 2 caracteres"
+            )
+            return
+        }
+
 
         val usuarioDao = UsuarioDao(this)
 
