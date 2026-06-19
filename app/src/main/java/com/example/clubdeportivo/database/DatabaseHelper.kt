@@ -210,6 +210,28 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             1,
             1,
             'activo'
+        ),
+        (
+            'Pedro',
+            'Ruiz',
+            1,
+            '77777777',
+            'pedro@gmail.com',
+            '3434123454',
+            1,
+            1,
+            'activo'
+        ),
+        (
+            'Miguel',
+            'Ramirez',
+            1,
+            '66666666',
+            'miguel@gmail.com',
+            '3434123545',
+            1,
+            1,
+            'activo'
         )
     """.trimIndent())
     }
@@ -292,6 +314,28 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         50000,
         '2026-03-10',
         '2026-04-10',
+        NULL,
+        NULL,
+        NULL,
+        'pendiente'
+    ),
+     (
+        2,
+        '2026-04',
+        50000,
+        '2026-04-10',
+        '2026-05-10',
+        NULL,
+        NULL,
+        NULL,
+        'pendiente'
+    ),
+    (
+        3,
+        '2026-01',
+        50000,
+        '2026-01-10',
+        '2026-02-10',
         NULL,
         NULL,
         NULL,
